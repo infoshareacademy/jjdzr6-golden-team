@@ -4,7 +4,7 @@ public interface MenuService {
 
     public void drawMenu();
 
-    public void continueHandler();
+    public void continueHandler(String s);
 
     public void exitHandler();
 

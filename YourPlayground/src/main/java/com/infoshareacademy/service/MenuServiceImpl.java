@@ -18,9 +18,8 @@ public class MenuServiceImpl implements MenuService {
                 + "5. Exit");
     }
 
-
     @Override
-    public void continueHandler() {
+    public void continueHandler(String s) {
         String wantToContinue;
         boolean goBack = false;
         Scanner scanner = new Scanner(System.in);
@@ -31,8 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
             if (wantToContinue.equalsIgnoreCase("Y")) {
                 //TODO
-                System.out.println("Coming soon\r\n");
-
+                System.out.println(s + "\r\n");
                 goBack = true;
             } else if (wantToContinue.equalsIgnoreCase("N")) {
                 goBack = true;
@@ -75,16 +73,16 @@ public class MenuServiceImpl implements MenuService {
 
             switch (userInput()) {
                 case 1:
-                    continueHandler();
+                    continueHandler("Join game soon");
                     break;
                 case 2:
-                    continueHandler();
+                    continueHandler("Create game soon");
                     break;
                 case 3:
-                    continueHandler();
+                    continueHandler("Map soon");
                     break;
                 case 4:
-                    continueHandler();
+                    continueHandler("Player configuration soon");
                     break;
                 case 5:
                     exitHandler();
