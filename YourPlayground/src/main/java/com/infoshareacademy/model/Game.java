@@ -1,17 +1,19 @@
 package com.infoshareacademy.model;
 
 import com.infoshareacademy.service.GameServiceImpl;
+import com.infoshareacademy.utils.GameType;
 
 public class Game extends GameServiceImpl {
     //region Fields
     private String name;
-    private String type;
+    private GameType type;
     private int numberOfPlayers;
     private Location gameLocation;
+
     //endregion
 
     //region Constructor
-    public Game(String name, String type, int numberOfPlayers, Location gameLocation) {
+    public Game(String name, GameType type, int numberOfPlayers, Location gameLocation) {
         this.name = name;
         this.type = type;
         this.numberOfPlayers = numberOfPlayers;
@@ -28,11 +30,11 @@ public class Game extends GameServiceImpl {
         this.name = name;
     }
 
-    public String getType() {
+    public GameType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(GameType type) {
         this.type = type;
     }
 
@@ -57,7 +59,7 @@ public class Game extends GameServiceImpl {
     public String toString() {
         return "Game{" +
                 "name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + type.toString() + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
                 ", gameLocation=" + gameLocation +
                 '}';
