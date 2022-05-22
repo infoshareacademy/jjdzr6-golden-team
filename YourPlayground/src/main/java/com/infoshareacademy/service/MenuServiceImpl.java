@@ -3,9 +3,10 @@ package com.infoshareacademy.service;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
 
     private boolean wantToExit = false;
+
     @Override
     public void drawMenu() {
         System.out.println("YourPlayground\r\n"
@@ -17,30 +18,54 @@ public class MenuServiceImpl implements MenuService{
                 + "5. Exit");
     }
 
+
+    @Override
+    public void continueHandler() {
+        String wantToContinue;
+        boolean goBack = false;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print("Do you want to continue? Y/N: ");
+
+            wantToContinue = scanner.nextLine();
+
+            if (wantToContinue.equalsIgnoreCase("Y")) {
+                //TODO
+                System.out.println("Coming soon\r\n");
+
+                goBack = true;
+            } else if (wantToContinue.equalsIgnoreCase("N")) {
+                goBack = true;
+                System.out.println();
+            } else {
+                System.out.println("Select available options.\r\n");
+            }
+        } while (!goBack);
+    }
+
     @Override
     public void exitHandler() {
         String exit;
         boolean goBack = false;
         Scanner sc = new Scanner(System.in);
-        do{
+        do {
             System.out.print("Do you really want to exit? Y/N: ");
 
             exit = sc.nextLine();
 
-            if(exit.equalsIgnoreCase("Y")) {
+            if (exit.equalsIgnoreCase("Y")) {
                 System.out.println("Sorry to see you go.");
                 System.out.println("Come back soon!");
                 wantToExit = true;
                 goBack = true;
-            }
-            else if(exit.equalsIgnoreCase("N")) {
+            } else if (exit.equalsIgnoreCase("N")) {
                 wantToExit = false;
                 goBack = true;
                 System.out.println();
             } else {
                 System.out.println("Select available options.\r\n");
             }
-        } while(!goBack);
+        } while (!goBack);
     }
 
     @Override
@@ -48,18 +73,18 @@ public class MenuServiceImpl implements MenuService{
         do {
             drawMenu();
 
-            switch(userInput()) {
+            switch (userInput()) {
                 case 1:
-                    System.out.println("You chose 1\r\n");
+                    continueHandler();
                     break;
                 case 2:
-                    System.out.println("You chose 2\r\n");
+                    continueHandler();
                     break;
                 case 3:
-                    System.out.println("You chose 3\r\n");
+                    continueHandler();
                     break;
                 case 4:
-                    System.out.println("You chose 4\r\n");
+                    continueHandler();
                     break;
                 case 5:
                     exitHandler();
