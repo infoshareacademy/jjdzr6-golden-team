@@ -1,26 +1,10 @@
 package com.infoshareacademy.model;
 
-import com.infoshareacademy.service.Form;
+import com.infoshareacademy.service.FormService;
+import com.infoshareacademy.service.FormServiceImpl;
 
-public class SportForm implements Form {
-
-    private Game game;
-
+public class SportForm extends FormServiceImpl {
     public SportForm(Game game) {
-        this.game = game;
-    }
-
-    @Override
-    public void initializeForm() {
-    }
-
-    @Override
-    public void closeForm() {
-
-    }
-
-    @Override
-    public void saveToJson() {
-
+        super(game);
     }
 }

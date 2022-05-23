@@ -1,12 +1,20 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.model.Game;
+import com.infoshareacademy.utils.GameType;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuServiceImpl implements MenuService {
 
     private boolean wantToExit = false;
+    private GameType gameType;
 
+    public void printGameTypes () {
+        System.out.println("1. " + gameType.BOARD.toString());
+        System.out.println("2. " + gameType.SPORT.toString());
+    }
     @Override
     public void drawMenu() {
         System.out.println("YourPlayground\r\n"

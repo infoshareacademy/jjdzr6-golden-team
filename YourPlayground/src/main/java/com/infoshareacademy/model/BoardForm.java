@@ -1,24 +1,10 @@
 package com.infoshareacademy.model;
 
-import com.infoshareacademy.service.Form;
+import com.infoshareacademy.service.FormService;
+import com.infoshareacademy.service.FormServiceImpl;
 
-public class BoardForm implements Form {
-
-    private Game game;
-
+public class BoardForm extends FormServiceImpl {
     public BoardForm(Game game) {
-        this.game = game;
-    }
-
-    @Override
-    public void initializeForm() {
-    }
-
-    @Override
-    public void closeForm() {
-    }
-
-    @Override
-    public void saveToJson() {
+        super(game);
     }
 }

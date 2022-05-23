@@ -1,7 +1,10 @@
 package com.infoshareacademy.service;
 
-public interface Form {
+import com.infoshareacademy.model.Game;
+
+import java.io.IOException;
+
+public interface FormService {
     public void initializeForm();
     public void closeForm();
-    public void saveToJson();
 }
