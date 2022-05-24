@@ -1,6 +1,8 @@
 package com.infoshareacademy.model;
 
-public class Game {
+import com.infoshareacademy.service.GameServiceImpl;
+
+public class Game extends GameServiceImpl {
     //region Fields
     private String name;
     private String type;
