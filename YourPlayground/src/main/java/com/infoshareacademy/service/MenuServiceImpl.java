@@ -1,6 +1,5 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.model.Game;
 import com.infoshareacademy.utils.GameType;
 
 import java.util.InputMismatchException;
@@ -85,6 +84,7 @@ public class MenuServiceImpl implements MenuService {
                     break;
                 case 2:
                     continueHandler("Create game soon");
+                    //TODO
                     break;
                 case 3:
                     continueHandler("Map soon");

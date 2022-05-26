@@ -19,6 +19,11 @@ public class Game extends GameServiceImpl {
         this.numberOfPlayers = numberOfPlayers;
         this.gameLocation = gameLocation;
     }
+
+    public Game(GameType type) {
+        this.type = type;
+    }
+
     //endregion
 
     //region Getters&Setters
