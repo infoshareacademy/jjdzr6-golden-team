@@ -2,24 +2,21 @@ package com.infoshareacademy.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import org.json.*;
 import com.infoshareacademy.model.Game;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
 
 public class FormServiceImpl implements FormService, JsonService {
 
-    public static final Path RESOURCE_PATH = Paths.get("/home/mathy931/IdeaProjects/jjdzr6-golden-team/YourPlayground/src/main/resources");
+    public static final Path RESOURCE_PATH = Path.of("src", "main", "resources");
 
     public Game game;
 
