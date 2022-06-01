@@ -12,7 +12,7 @@ public class MenuServiceImpl implements MenuService {
 
     public void printGameTypes () {
         System.out.println("1. " + gameType.BOARD.toString());
-        System.out.println("2. " + gameType.SPORT.toString());
+        System.out.println("2. " + gameType.SPORTS.toString());
     }
     @Override
     public void drawMenu() {

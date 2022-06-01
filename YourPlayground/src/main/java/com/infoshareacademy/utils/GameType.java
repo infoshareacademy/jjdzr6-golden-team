@@ -7,7 +7,7 @@ public enum GameType {
             return "Board games";
         }
     },
-    SPORT {
+    SPORTS {
         @Override
         public String toString() {
             return "Sports games";

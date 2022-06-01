@@ -9,20 +9,23 @@ public class Game extends GameServiceImpl {
     private GameType type;
     private int numberOfPlayers;
     private Location gameLocation;
+    private DateOfGame dateOfGame;
+    private City city;
 
     //endregion
 
     //region Constructor
-    public Game(String name, GameType type, int numberOfPlayers, Location gameLocation) {
+
+    public Game(String name, GameType type, int numberOfPlayers, Location gameLocation, DateOfGame dateOfGame, City city) {
         this.name = name;
         this.type = type;
         this.numberOfPlayers = numberOfPlayers;
         this.gameLocation = gameLocation;
+        this.dateOfGame = dateOfGame;
+        this.city = city;
     }
 
-    public Game(GameType type) {
-        this.type = type;
-    }
+    public Game() {}
 
     //endregion
 
@@ -58,6 +61,23 @@ public class Game extends GameServiceImpl {
     public void setGameLocation(Location gameLocation) {
         this.gameLocation = gameLocation;
     }
+
+    public DateOfGame getGameDate() {
+        return dateOfGame;
+    }
+
+    public void setGameDate(DateOfGame dateOfGame) {
+        this.dateOfGame = dateOfGame;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     //endregion
 
     @Override
