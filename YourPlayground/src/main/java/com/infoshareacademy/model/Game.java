@@ -13,6 +13,7 @@ public class Game extends GameServiceImpl {
     private final List<Player> players;
     private final Location gameLocation;
     private final DateOfGame dateOfGame;
+    private final Player gameInitiator;
 
     // Constructor
     private Game(Builder builder) {
@@ -22,6 +23,27 @@ public class Game extends GameServiceImpl {
         this.players = builder.players;
         this.gameLocation = builder.gameLocation;
         this.dateOfGame = builder.dateOfGame;
+        this.gameInitiator = builder.gameInitiator;
+    }
+
+    /**
+     * Static factory method that creates builder.
+     * @return new game builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * Adds a player to the game's list of players.
+     * @param player that is added to the list.
+     */
+    public void addPlayerToListOfPlayers(Player player) {
+        if (this.players.size() < this.maxNumberOfPlayers) {
+            this.players.add(player);
+        } else {
+            System.out.println("Number of players is full.");
+        }
     }
 
     //region Getters
@@ -50,7 +72,24 @@ public class Game extends GameServiceImpl {
         return dateOfGame;
     }
 
+    public Player getGameInitiator() {
+        return gameInitiator;
+    }
+
     //endregion
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", maxNumberOfPlayers=" + maxNumberOfPlayers +
+                ", players=" + players +
+                ", gameLocation=" + gameLocation +
+                ", dateOfGame=" + dateOfGame +
+                ", gameInitiator=" + gameInitiator +
+                '}';
+    }
 
     public static final class Builder {
 
@@ -60,11 +99,7 @@ public class Game extends GameServiceImpl {
         private List<Player> players;
         private Location gameLocation;
         private DateOfGame dateOfGame;
-
-        // Builder Factory
-        public static Builder builder() {
-            return new Builder();
-        }
+        private Player gameInitiator;
 
         // Builder methods
         public Builder addName(String name) {
@@ -97,9 +132,13 @@ public class Game extends GameServiceImpl {
             return this;
         }
 
+        public Builder addGameInitiator(Player gameInitiator) {
+            this.gameInitiator = gameInitiator;
+            return this;
+        }
+
         public Game build() {
             return new Game(this);
         }
     }
-
 }

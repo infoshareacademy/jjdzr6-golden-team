@@ -1,21 +1,18 @@
 package com.infoshareacademy.model;
 
 public class Location {
-    //region Fields
+    // Fields
     private double longitude;
     private double latitude;
     private String town;
-    //endregion
 
 
-
-    //region Constructor
+    // Constructor
     public Location(double longitude, double latitude, String town) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.town = town;
     }
-    //endregion
 
     //region Getters&Setters
     public double getLongitude() {
@@ -43,4 +40,13 @@ public class Location {
     }
 
     //endregion
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", town='" + town + '\'' +
+                '}';
+    }
 }
