@@ -4,12 +4,16 @@ public class Location {
     //region Fields
     private double longitude;
     private double latitude;
+    private String town;
     //endregion
 
+
+
     //region Constructor
-    public Location(double longitude, double latitude) {
+    public Location(double longitude, double latitude, String town) {
         this.longitude = longitude;
         this.latitude = latitude;
+        this.town = town;
     }
     //endregion
 
@@ -30,13 +34,13 @@ public class Location {
         this.latitude = latitude;
     }
 
-    //endregion
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                '}';
+    public String getTown() {
+        return town;
     }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    //endregion
 }

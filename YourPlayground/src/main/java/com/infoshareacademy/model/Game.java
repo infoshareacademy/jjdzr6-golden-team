@@ -6,26 +6,23 @@ import com.infoshareacademy.utils.GameType;
 import java.util.List;
 
 public class Game extends GameServiceImpl {
-    //region Fields
-    private String name;
-    private GameType type;
-    private List<Player> players;
-    private int numberOfPlayers;
-    private Location gameLocation;
-    private DateOfGame dateOfGame;
-    private City city;
+    // Fields
+    private final String name;
+    private final GameType type;
+    private final int maxNumberOfPlayers;
+    private final List<Player> players;
+    private final Location gameLocation;
+    private final DateOfGame dateOfGame;
 
-    //endregion
-
-    //region Constructor
-    public Game(String name, GameType type) {
-        this.name = name;
-        this.type = type;
+    // Constructor
+    private Game(Builder builder) {
+        this.name = builder.name;
+        this.type = builder.type;
+        this.maxNumberOfPlayers = builder.maxNumberOfPlayers;
+        this.players = builder.players;
+        this.gameLocation = builder.gameLocation;
+        this.dateOfGame = builder.dateOfGame;
     }
-
-    public Game() {}
-
-    //endregion
 
     //region Getters
 
@@ -37,12 +34,12 @@ public class Game extends GameServiceImpl {
         return type;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public int getMaxNumberOfPlayers() {
+        return maxNumberOfPlayers;
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public Location getGameLocation() {
@@ -53,23 +50,56 @@ public class Game extends GameServiceImpl {
         return dateOfGame;
     }
 
-    public City getCity() {
-        return city;
-    }
-
     //endregion
 
+    public static final class Builder {
 
-    @Override
-    public String toString() {
-        return "Game{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", players=" + players +
-                ", numberOfPlayers=" + numberOfPlayers +
-                ", gameLocation=" + gameLocation +
-                ", dateOfGame=" + dateOfGame +
-                ", city=" + city +
-                '}';
+        private String name;
+        private GameType type;
+        private int maxNumberOfPlayers;
+        private List<Player> players;
+        private Location gameLocation;
+        private DateOfGame dateOfGame;
+
+        // Builder Factory
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        // Builder methods
+        public Builder addName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder addGameType(GameType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder addMaxNumberOfPlayers(int maxNumberOfPlayers) {
+            this.maxNumberOfPlayers = maxNumberOfPlayers;
+            return this;
+        }
+
+        public Builder addListOfPlayers(List<Player> players) {
+            this.players = players;
+            return this;
+        }
+
+        public Builder addGameLocation(Location gameLocation) {
+            this.gameLocation = gameLocation;
+            return this;
+        }
+
+        public Builder addDateOfGame(DateOfGame dateOfGame) {
+            this.dateOfGame = dateOfGame;
+            return this;
+        }
+
+        public Game build() {
+            return new Game(this);
+        }
     }
+
 }
