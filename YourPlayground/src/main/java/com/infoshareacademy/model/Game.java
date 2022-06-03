@@ -3,10 +3,13 @@ package com.infoshareacademy.model;
 import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
+import java.util.List;
+
 public class Game extends GameServiceImpl {
     //region Fields
     private String name;
     private GameType type;
+    private List<Player> players;
     private int numberOfPlayers;
     private Location gameLocation;
     private DateOfGame dateOfGame;
@@ -15,78 +18,58 @@ public class Game extends GameServiceImpl {
     //endregion
 
     //region Constructor
-
-    public Game(String name, GameType type, int numberOfPlayers, Location gameLocation, DateOfGame dateOfGame, City city) {
+    public Game(String name, GameType type) {
         this.name = name;
         this.type = type;
-        this.numberOfPlayers = numberOfPlayers;
-        this.gameLocation = gameLocation;
-        this.dateOfGame = dateOfGame;
-        this.city = city;
     }
 
     public Game() {}
 
     //endregion
 
-    //region Getters&Setters
+    //region Getters
+
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public GameType getType() {
         return type;
     }
 
-    public void setType(GameType type) {
-        this.type = type;
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
-    }
-
     public Location getGameLocation() {
         return gameLocation;
     }
 
-    public void setGameLocation(Location gameLocation) {
-        this.gameLocation = gameLocation;
-    }
-
-    public DateOfGame getGameDate() {
+    public DateOfGame getDateOfGame() {
         return dateOfGame;
-    }
-
-    public void setGameDate(DateOfGame dateOfGame) {
-        this.dateOfGame = dateOfGame;
     }
 
     public City getCity() {
         return city;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     //endregion
+
 
     @Override
     public String toString() {
         return "Game{" +
                 "name='" + name + '\'' +
-                ", type='" + type.toString() + '\'' +
+                ", type=" + type +
+                ", players=" + players +
                 ", numberOfPlayers=" + numberOfPlayers +
                 ", gameLocation=" + gameLocation +
+                ", dateOfGame=" + dateOfGame +
+                ", city=" + city +
                 '}';
     }
 }

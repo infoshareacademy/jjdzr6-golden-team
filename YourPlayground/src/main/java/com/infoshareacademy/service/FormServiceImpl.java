@@ -16,7 +16,7 @@ import java.nio.file.StandardOpenOption;
 
 public class FormServiceImpl implements FormService, JsonService {
 
-    public static final Path RESOURCE_PATH = Path.of("YourPlayground", "src", "main", "resources");
+    public static final Path RESOURCE_PATH = Path.of("src", "main", "resources");
 
     public Game game;
 

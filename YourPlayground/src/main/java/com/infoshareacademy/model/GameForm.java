@@ -7,5 +7,5 @@ public class GameForm extends FormServiceImpl {
     public GameForm(Game game) {
         super(game);
     }
-    
+
 }
