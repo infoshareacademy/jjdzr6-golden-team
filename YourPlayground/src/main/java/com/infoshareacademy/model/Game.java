@@ -3,6 +3,7 @@ package com.infoshareacademy.model;
 import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends GameServiceImpl {
@@ -60,10 +61,6 @@ public class Game extends GameServiceImpl {
         return maxNumberOfPlayers;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
     public Location getGameLocation() {
         return gameLocation;
     }
@@ -96,10 +93,15 @@ public class Game extends GameServiceImpl {
         private String name;
         private GameType type;
         private int maxNumberOfPlayers;
-        private List<Player> players;
+        private final List<Player> players;
         private Location gameLocation;
         private DateOfGame dateOfGame;
         private Player gameInitiator;
+
+        // Constructor
+        private Builder() {
+            this.players = new ArrayList<>();
+        }
 
         // Builder methods
         public Builder addName(String name) {
@@ -114,11 +116,6 @@ public class Game extends GameServiceImpl {
 
         public Builder addMaxNumberOfPlayers(int maxNumberOfPlayers) {
             this.maxNumberOfPlayers = maxNumberOfPlayers;
-            return this;
-        }
-
-        public Builder addListOfPlayers(List<Player> players) {
-            this.players = players;
             return this;
         }
 
@@ -138,7 +135,9 @@ public class Game extends GameServiceImpl {
         }
 
         public Game build() {
-            return new Game(this);
+            Game game = new Game(this);
+            game.addPlayerToListOfPlayers(gameInitiator);
+            return game;
         }
     }
 }
