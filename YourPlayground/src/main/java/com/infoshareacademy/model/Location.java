@@ -1,5 +1,7 @@
 package com.infoshareacademy.model;
 
+import com.google.gson.GsonBuilder;
+
 public class Location {
     // Fields
     private double longitude;
@@ -8,7 +10,7 @@ public class Location {
 
 
     // Constructor
-    public Location(double longitude, double latitude, String town) {
+    public Location(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.town = town;
@@ -43,10 +45,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", town='" + town + '\'' +
-                '}';
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

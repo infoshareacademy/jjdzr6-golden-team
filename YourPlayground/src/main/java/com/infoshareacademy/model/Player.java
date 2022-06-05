@@ -1,5 +1,8 @@
 package com.infoshareacademy.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class Player {
     private String name;
     private String mail;
@@ -31,9 +34,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
-                '}';
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

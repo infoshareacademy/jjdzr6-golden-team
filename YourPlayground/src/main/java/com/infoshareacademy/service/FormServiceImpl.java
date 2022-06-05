@@ -16,7 +16,7 @@ import java.nio.file.StandardOpenOption;
 
 public class FormServiceImpl implements FormService, JsonService {
 
-    public static final Path RESOURCE_PATH = Path.of("src", "main", "resources");
+    public static final String RESOURCE_PATH ="YourPlayground/src/main/resources";
 
     public Game game;
 
@@ -43,7 +43,14 @@ public class FormServiceImpl implements FormService, JsonService {
     }
 
     @Override
-    public JSONArray openJson() throws IOException {
+    public JSONArray toJsonArray() throws IOException {
+
+        JSONArray jsonArray = new JSONArray(fromJson());
+        return jsonArray;
+    }
+
+    @Override
+    public Game[] fromJson() throws IOException {
 
         Gson gson = new GsonBuilder().create();
 
@@ -53,13 +60,11 @@ public class FormServiceImpl implements FormService, JsonService {
 
         Game[] games = gson.fromJson(file, Game[].class);
 
-        JSONArray jsonArray = new JSONArray(games);
-
-        return jsonArray;
+        return games;
     }
 
     @Override
-    public void saveToJson(Game game) throws IOException {
+    public void saveToJsonFile(Game game) throws IOException {
 
         Gson gson = new GsonBuilder().create();
 
@@ -71,7 +76,7 @@ public class FormServiceImpl implements FormService, JsonService {
 
         JSONObject jsonObject = new JSONObject(json);
 
-        JSONArray jsonArray = openJson();
+        JSONArray jsonArray = toJsonArray();
 
         jsonArray.put(jsonObject);
 
@@ -84,16 +89,13 @@ public class FormServiceImpl implements FormService, JsonService {
 
     @Override
     public void printGamesFromJson() throws IOException {
-        Gson gson = new GsonBuilder().create();
-
-        Path filePath = Paths.get(RESOURCE_PATH.toString(), "games.json");
-
-        String file = Files.readString(filePath);
-
-        Game[] games = gson.fromJson(file, Game[].class);
-
-        for(Game game: games) {
+        for (Game game : fromJson()) {
             System.out.println(game);
         }
+    }
+
+    @Override
+    public void printAsJson(Object o) {
+        System.out.println(new Gson().toJson(o));
     }
 }
