@@ -8,12 +8,8 @@ public class Location {
     private double latitude;
     private String town;
 
+    public Location() {
 
-    // Constructor
-    public Location(double longitude, double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.town = town;
     }
 
     //region Getters&Setters

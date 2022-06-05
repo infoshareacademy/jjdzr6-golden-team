@@ -1,15 +1,15 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
+import com.infoshareacademy.model.GameForm;
 import com.infoshareacademy.model.Player;
 import com.infoshareacademy.utils.GameType;
 
 public class GameServiceImpl implements GameService {
 
     @Override
-    public Game createGame() {
-        Game game = new Game();
-        return game;
+    public Game createGame(GameForm gameForm) {
+        return new Game(gameForm);
     }
 
     @Override
@@ -28,10 +28,10 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void addPlayerToGame(Player player) {
+    public void addPlayerToGame(Player player, Game game) {
 
-        if (createGame().getPlayers().size() < createGame().getMaxNumberOfPlayers()) {
-            createGame().getPlayers().add(player);
+        if (game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
+            game.getPlayers().add(player);
         } else {
             System.out.println("Game is full.");
         }

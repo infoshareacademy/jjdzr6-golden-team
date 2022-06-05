@@ -1,12 +1,9 @@
 package com.infoshareacademy.model;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.infoshareacademy.service.FormServiceImpl;
 import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends GameServiceImpl {
@@ -22,6 +19,16 @@ public class Game extends GameServiceImpl {
     // Constructor
 
     public Game() {
+    }
+
+    public Game(GameForm gameForm) {
+        this.name = gameForm.getName();
+        this.type = gameForm.getType();
+        this.maxNumberOfPlayers = gameForm.getMaxNumberOfPlayers();
+        this.players = gameForm.getPlayers();
+        this.gameLocation = gameForm.getGameLocation();
+        this.dateOfGame = gameForm.getDateOfGame();
+        this.gameOwner = gameForm.getGameOwner();
     }
 
     @Override

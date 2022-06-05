@@ -2,7 +2,8 @@ package com.infoshareacademy.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.infoshareacademy.model.Game;
+import com.infoshareacademy.model.*;
+import com.infoshareacademy.utils.GameType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,28 +14,63 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Scanner;
 
 public class FormServiceImpl implements FormService, JsonService {
 
     public static final String RESOURCE_PATH ="YourPlayground/src/main/resources";
 
-    public Game game;
 
-    public FormServiceImpl(Game game) {
-        this.game = game;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
 
     @Override
-    public void initializeForm() {
-        //TODO
+    public Game printForm() throws ParseException {
+        GameForm gameForm = new GameForm();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Podaj swoje imię: ");
+        gameForm.getGameOwner().setName(scanner.nextLine());
+
+        System.out.println("Podaj swojego emaila: ");
+        gameForm.getGameOwner().setMail(scanner.nextLine());
+
+        System.out.println("Wybierz rodzaj gry: ");
+        System.out.println("1. Sport");
+        System.out.println("2. Board");
+
+        int type = scanner.nextInt();
+
+        if(type == 1)  {
+            gameForm.setType(GameType.SPORTS);
+        }
+        else if (type == 2) {
+            gameForm.setType(GameType.BOARD);
+        }
+        else System.out.println("ty baranie");
+
+        scanner = new Scanner(System.in);
+
+        System.out.println("Podaj nazwę gry: ");
+        gameForm.setName(scanner.nextLine());
+
+        System.out.println("Podaj liczbę graczy: ");
+        gameForm.setMaxNumberOfPlayers(scanner.nextInt());
+
+        scanner = new Scanner(System.in);
+
+        System.out.println("Podaj miasto: ");
+        gameForm.getGameLocation().setTown(scanner.nextLine());
+
+        scanner = new Scanner(System.in);
+
+        System.out.println("Podaj datę gry (dd-mm-yyyy): ");
+        gameForm.getDateOfGame().setGameDate(scanner.nextLine());
+
+        return new Game(gameForm);
     }
 
     @Override

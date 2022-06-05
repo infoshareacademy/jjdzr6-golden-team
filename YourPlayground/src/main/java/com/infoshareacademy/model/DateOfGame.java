@@ -1,16 +1,17 @@
 package com.infoshareacademy.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 
 public class DateOfGame {
 
-    private Date gameDate;
+    private String gameDate;
 
-    public Date getGameDate() {
+    public String getGameDate() {
         return gameDate;
     }
 
-    public void setGameDate(Date gameDate) {
+    public void setGameDate(String gameDate) {
         this.gameDate = gameDate;
     }
 }

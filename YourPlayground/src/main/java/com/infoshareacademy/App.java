@@ -9,21 +9,21 @@ import com.infoshareacademy.service.FormServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * YourPlayground App allows you to easily find games you love to play in your city.
  */
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
 
-        Game game = new Game();
-        game.setName("bilard");
-        game.setType(GameType.BOARD);
-        FormServiceImpl form = new GameForm(game);
+        GameForm gameForm = new GameForm();
 
-        form.saveToJsonFile(game);
+        Game game = gameForm.printForm();
 
-        form.printGamesFromJson();
+        gameForm.saveToJsonFile(game);
+
+        gameForm.printGamesFromJson();
 
     }
 }

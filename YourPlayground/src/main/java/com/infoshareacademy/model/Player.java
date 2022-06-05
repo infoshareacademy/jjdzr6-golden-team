@@ -12,6 +12,10 @@ public class Player {
         this.mail = mail;
     }
 
+    public Player() {
+
+    }
+
     //region Getters&Setters
 
     public String getName() {

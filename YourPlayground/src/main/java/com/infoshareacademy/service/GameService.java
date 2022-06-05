@@ -1,11 +1,12 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
+import com.infoshareacademy.model.GameForm;
 import com.infoshareacademy.model.Player;
 
 public interface GameService {
     //region Methods
-    public Game createGame();
+    public Game createGame(GameForm gameForm);
 
     public void searchGame();
 
@@ -13,6 +14,6 @@ public interface GameService {
 
     public void joinGame();
 
-    public void addPlayerToGame(Player player);
+    public void addPlayerToGame(Player player, Game game);
     //endregion
 }
