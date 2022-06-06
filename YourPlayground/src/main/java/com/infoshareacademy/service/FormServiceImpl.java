@@ -28,15 +28,16 @@ public class FormServiceImpl implements FormService, JsonService {
 
     @Override
     public Game printForm() throws ParseException {
-        GameForm gameForm = new GameForm();
+        Game game = new Game();
+        game.setGameForm(new GameForm());
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Podaj swoje imię: ");
-        gameForm.getGameOwner().setName(scanner.nextLine());
+        game.getGameForm().getGameOwner().setName(scanner.nextLine());
 
         System.out.println("Podaj swojego emaila: ");
-        gameForm.getGameOwner().setMail(scanner.nextLine());
+        game.getGameForm().getGameOwner().setMail(scanner.nextLine());
 
         System.out.println("Wybierz rodzaj gry: ");
         System.out.println("1. Sport");
@@ -45,32 +46,34 @@ public class FormServiceImpl implements FormService, JsonService {
         int type = scanner.nextInt();
 
         if(type == 1)  {
-            gameForm.setType(GameType.SPORTS);
+            game.getGameForm().setType(GameType.SPORTS);
         }
         else if (type == 2) {
-            gameForm.setType(GameType.BOARD);
+            game.getGameForm().setType(GameType.BOARD);
         }
         else System.out.println("ty baranie");
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj nazwę gry: ");
-        gameForm.setName(scanner.nextLine());
+        game.getGameForm().setName(scanner.nextLine());
 
         System.out.println("Podaj liczbę graczy: ");
-        gameForm.setMaxNumberOfPlayers(scanner.nextInt());
+        game.getGameForm().setMaxNumberOfPlayers(scanner.nextInt());
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj miasto: ");
-        gameForm.getGameLocation().setTown(scanner.nextLine());
+        game.getGameForm().getGameLocation().setTown(scanner.nextLine());
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj datę gry (dd-mm-yyyy): ");
-        gameForm.getDateOfGame().setGameDate(scanner.nextLine());
+        game.getGameForm().getDateOfGame().setGameDate(scanner.nextLine());
 
-        return new Game(gameForm);
+        game.fillGame();
+
+        return game;
     }
 
     @Override

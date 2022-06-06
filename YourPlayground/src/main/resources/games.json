@@ -1,84 +1,33 @@
 [
   {
-    "maxNumberOfPlayers": 0,
-    "gameLocation": {
-      "latitude": 123.3,
-      "longitude": 12.2
+    "gameForm": {
+      "maxNumberOfPlayers": 10,
+      "gameLocation": {
+        "town": "Warszawa",
+        "latitude": 0,
+        "longitude": 0
+      },
+      "name": "Koszykówka",
+      "type": "SPORTS",
+      "gameOwner": {
+        "mail": "mat@op.pl",
+        "name": "Mateusz"
+      },
+      "dateOfGame": {
+        "gameDate": "12-06-2022"
+      }
     },
-    "name": "noga"
-  },
-  {
-    "maxNumberOfPlayers": 0,
-    "name": "bilard",
-    "type": "BOARD"
-  },
-  {
-    "maxNumberOfPlayers": 12,
-    "type": "BOARD",
+    "maxNumberOfPlayers": 10,
+    "gameLocation": {
+      "town": "Warszawa",
+      "latitude": 0,
+      "longitude": 0
+    },
+    "name": "Koszykówka",
+    "type": "SPORTS",
     "gameOwner": {
-      "mail": "m@g.c",
+      "mail": "mat@op.pl",
       "name": "Mateusz"
-    }
-  },
-  {
-    "maxNumberOfPlayers": 12,
-    "gameLocation": {
-      "town": "",
-      "latitude": 0,
-      "longitude": 0
-    },
-    "type": "SPORTS",
-    "gameOwner": {
-      "mail": "AS@",
-      "name": "12"
-    },
-    "dateOfGame": {}
-  },
-  {
-    "maxNumberOfPlayers": 12,
-    "gameLocation": {
-      "town": "MAKl",
-      "latitude": 0,
-      "longitude": 0
-    },
-    "type": "SPORTS",
-    "gameOwner": {
-      "mail": "12@",
-      "name": "MAt"
-    },
-    "dateOfGame": {
-      "gameDate": "Mon May 22 00:00:00 CEST 2034"
-    }
-  },
-  {
-    "maxNumberOfPlayers": 12,
-    "gameLocation": {
-      "town": "Waw",
-      "latitude": 0,
-      "longitude": 0
-    },
-    "name": "Kosz",
-    "type": "SPORTS",
-    "gameOwner": {
-      "mail": "@#",
-      "name": "Mat"
-    },
-    "dateOfGame": {
-      "gameDate": "Mar 12, 2021, 12:00:00 AM"
-    }
-  },
-  {
-    "maxNumberOfPlayers": 12,
-    "gameLocation": {
-      "town": "Waw",
-      "latitude": 0,
-      "longitude": 0
-    },
-    "name": "Ping",
-    "type": "SPORTS",
-    "gameOwner": {
-      "mail": "@",
-      "name": "Mat"
     },
     "dateOfGame": {
       "gameDate": "12-06-2022"

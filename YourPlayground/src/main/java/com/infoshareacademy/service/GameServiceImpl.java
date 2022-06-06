@@ -9,11 +9,16 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game createGame(GameForm gameForm) {
-        return new Game(gameForm);
+        return new Game();
     }
 
     @Override
     public void searchGame() {
+        //TODO
+    }
+
+    @Override
+    public void printGames() {
         //TODO
     }
 

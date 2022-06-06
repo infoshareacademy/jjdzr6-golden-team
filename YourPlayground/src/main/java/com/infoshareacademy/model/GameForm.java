@@ -5,7 +5,7 @@ import com.infoshareacademy.utils.GameType;
 
 import java.util.List;
 
-public class GameForm extends FormServiceImpl {
+public class GameForm {
 
     private String name;
     private GameType type;

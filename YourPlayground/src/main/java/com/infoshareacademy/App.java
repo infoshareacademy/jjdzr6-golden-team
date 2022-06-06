@@ -18,12 +18,13 @@ public class App {
     public static void main(String[] args) throws IOException, ParseException {
 
         GameForm gameForm = new GameForm();
+        FormServiceImpl formService = new FormServiceImpl();
 
-        Game game = gameForm.printForm();
+        Game game = formService.printForm();
 
-        gameForm.saveToJsonFile(game);
+        formService.saveToJsonFile(game);
 
-        gameForm.printGamesFromJson();
+        formService.printGamesFromJson();
 
     }
 }

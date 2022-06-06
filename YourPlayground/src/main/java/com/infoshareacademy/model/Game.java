@@ -15,13 +15,18 @@ public class Game extends GameServiceImpl {
     private Location gameLocation;
     private DateOfGame dateOfGame;
     private Player gameOwner;
+    private GameForm gameForm;
 
     // Constructor
-
     public Game() {
     }
 
-    public Game(GameForm gameForm) {
+    @Override
+    public String toString() {
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+    }
+
+    public void fillGame() {
         this.name = gameForm.getName();
         this.type = gameForm.getType();
         this.maxNumberOfPlayers = gameForm.getMaxNumberOfPlayers();
@@ -29,11 +34,6 @@ public class Game extends GameServiceImpl {
         this.gameLocation = gameForm.getGameLocation();
         this.dateOfGame = gameForm.getDateOfGame();
         this.gameOwner = gameForm.getGameOwner();
-    }
-
-    @Override
-    public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 
     //region Getters
@@ -94,5 +94,12 @@ public class Game extends GameServiceImpl {
 
     public void setGameOwner(Player gameOwner) {
         this.gameOwner = gameOwner;
+    }
+    public GameForm getGameForm() {
+        return gameForm;
+    }
+
+    public void setGameForm(GameForm gameForm) {
+        this.gameForm = gameForm;
     }
 }

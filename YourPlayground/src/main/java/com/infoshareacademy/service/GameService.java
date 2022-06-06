@@ -10,6 +10,8 @@ public interface GameService {
 
     public void searchGame();
 
+    public void printGames();
+
     public void deleteGame();
 
     public void joinGame();
