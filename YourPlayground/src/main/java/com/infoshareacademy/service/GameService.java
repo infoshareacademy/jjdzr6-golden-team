@@ -6,7 +6,7 @@ import com.infoshareacademy.model.Player;
 
 public interface GameService {
     //region Methods
-    public Game createGame(GameForm gameForm);
+    public Game createGame(GameForm gameForm, Game game);
 
     public void searchGame();
 

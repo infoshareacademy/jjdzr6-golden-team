@@ -3,6 +3,7 @@ package com.infoshareacademy.model;
 import com.infoshareacademy.service.FormServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameForm {
@@ -19,6 +20,7 @@ public class GameForm {
         this.gameLocation = new Location();
         this.dateOfGame = new DateOfGame();
         this.gameOwner = new Player();
+        this.players = new ArrayList<>();
     }
 
 

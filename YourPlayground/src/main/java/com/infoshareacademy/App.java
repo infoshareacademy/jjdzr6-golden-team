@@ -1,5 +1,6 @@
 package com.infoshareacademy;
 
+import com.google.gson.Gson;
 import com.infoshareacademy.gui.Menu;
 import com.infoshareacademy.model.Game;
 import com.infoshareacademy.model.GameForm;
@@ -25,6 +26,5 @@ public class App {
         formService.saveToJsonFile(game);
 
         formService.printGamesFromJson();
-
     }
 }

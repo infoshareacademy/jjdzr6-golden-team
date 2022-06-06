@@ -34,11 +34,15 @@ public class FormServiceImpl implements FormService, JsonService {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Podaj swoje imię: ");
+        game.getGameForm().setGameOwner(new Player());
         game.getGameForm().getGameOwner().setName(scanner.nextLine());
 
         System.out.println("Podaj swojego emaila: ");
         game.getGameForm().getGameOwner().setMail(scanner.nextLine());
+        game.addPlayerToGame(game.getGameForm().getGameOwner(), game);
 
+        System.out.println(game.getGameForm().getGameOwner());
+        System.out.println(game.getPlayers());
         System.out.println("Wybierz rodzaj gry: ");
         System.out.println("1. Sport");
         System.out.println("2. Board");
@@ -71,7 +75,7 @@ public class FormServiceImpl implements FormService, JsonService {
         System.out.println("Podaj datę gry (dd-mm-yyyy): ");
         game.getGameForm().getDateOfGame().setGameDate(scanner.nextLine());
 
-        game.fillGame();
+        game.createGame(game.getGameForm(), game);
 
         return game;
     }
@@ -128,8 +132,11 @@ public class FormServiceImpl implements FormService, JsonService {
 
     @Override
     public void printGamesFromJson() throws IOException {
+        int count = 0;
         for (Game game : fromJson()) {
-            System.out.println(game);
+            count++;
+            System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
+                    count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(), game.getGameLocation().getTown());
         }
     }
 

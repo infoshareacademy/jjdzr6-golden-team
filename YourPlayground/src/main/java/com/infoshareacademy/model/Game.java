@@ -26,16 +26,6 @@ public class Game extends GameServiceImpl {
         return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 
-    public void fillGame() {
-        this.name = gameForm.getName();
-        this.type = gameForm.getType();
-        this.maxNumberOfPlayers = gameForm.getMaxNumberOfPlayers();
-        this.players = gameForm.getPlayers();
-        this.gameLocation = gameForm.getGameLocation();
-        this.dateOfGame = gameForm.getDateOfGame();
-        this.gameOwner = gameForm.getGameOwner();
-    }
-
     //region Getters
 
     public String getName() {
