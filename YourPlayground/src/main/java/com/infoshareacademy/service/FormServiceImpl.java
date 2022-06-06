@@ -136,7 +136,8 @@ public class FormServiceImpl implements FormService, JsonService {
         for (Game game : fromJson()) {
             count++;
             System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
-                    count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(), game.getGameLocation().getTown());
+                    count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
+                    game.getGameLocation().getTown());
         }
     }
 

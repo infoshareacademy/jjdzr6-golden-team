@@ -7,6 +7,7 @@ import com.infoshareacademy.model.GameForm;
 import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
 import com.infoshareacademy.service.FormServiceImpl;
+import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
 import java.io.IOException;
@@ -20,11 +21,16 @@ public class App {
 
         GameForm gameForm = new GameForm();
         FormServiceImpl formService = new FormServiceImpl();
+        GameServiceImpl gameService = new GameServiceImpl();
 
-        Game game = formService.printForm();
+        gameService.printFoundGames(gameService.prepareSearchGame());
+
+        /*Game game = formService.printForm();
 
         formService.saveToJsonFile(game);
 
-        formService.printGamesFromJson();
+        formService.printGamesFromJson();*/
+
+
     }
 }
