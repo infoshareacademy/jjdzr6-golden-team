@@ -6,10 +6,9 @@ import com.infoshareacademy.model.Player;
 import com.infoshareacademy.model.SearchParams;
 import com.infoshareacademy.utils.GameType;
 
-import java.awt.desktop.SystemEventListener;
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -99,12 +98,43 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void deleteGame() {
-        //TODO
+        //TODO nie wiem czy jest sens to robić
     }
 
     @Override
     public void joinGame() {
-        //TODO
+        int userInput = -1;
+        String userName;
+        String userMail;
+        Scanner scanner = new Scanner(System.in);
+        FormServiceImpl formService = new FormServiceImpl();
+        List<Game> listOfGames = new ArrayList<>();
+
+        System.out.print("Type your name: ");
+        userName = scanner.nextLine();
+
+        System.out.print("Type your e-mail: ");
+        userMail = scanner.nextLine();
+
+        System.out.println("Which game would you like to join?\n\r");
+
+        try {
+            formService.printGamesFromJson();
+            listOfGames = Arrays.asList(formService.fromJson());
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+
+        userInput = scanner.nextInt() - 1;
+
+        addPlayerToGame(new Player(userName, userMail), listOfGames.get(userInput));
+
+        try {
+            formService.editJsonFile(userInput, listOfGames.get(userInput));
+            System.out.println("You are added to the game!");
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
     }
 
     @Override
