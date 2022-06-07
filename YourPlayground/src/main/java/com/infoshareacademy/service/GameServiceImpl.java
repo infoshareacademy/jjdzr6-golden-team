@@ -78,8 +78,9 @@ public class GameServiceImpl implements GameService {
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
                             game.getGameLocation().getTown());
                 }
-                System.out.println("To już wszystkie pasujące gry.");
             }
+            System.out.println("To już wszystkie pasujące gry.");
+
         } else if (choice == 'N' || choice == 'n') {
             System.out.println("Gry pasujące co najmniej jednym parametrem: ");
             int count = 0;
