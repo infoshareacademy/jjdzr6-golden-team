@@ -2,7 +2,9 @@ package com.infoshareacademy.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.infoshareacademy.model.*;
+import com.infoshareacademy.model.Game;
+import com.infoshareacademy.model.GameForm;
+import com.infoshareacademy.model.Player;
 import com.infoshareacademy.utils.GameType;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,16 +17,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Scanner;
 
 public class FormServiceImpl implements FormService, JsonService {
 
-    public static final String RESOURCE_PATH ="YourPlayground/src/main/resources";
-
-
+    public static final String RESOURCE_PATH ="src/main/resources";
 
     @Override
     public Game printForm() throws ParseException {
@@ -128,6 +125,21 @@ public class FormServiceImpl implements FormService, JsonService {
         writer.close();
 
         System.out.println("Game written to JSON file.");
+    }
+
+    @Override
+    public void editJsonFile(int index, Game game) throws IOException {
+        Gson gson = new GsonBuilder().create();
+        Path filePath = Paths.get(RESOURCE_PATH.toString(), "games.json");
+        Writer writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+
+        String json = gson.toJson(game);
+        JSONArray jsonArray = toJsonArray();
+        JSONObject jsonObject = new JSONObject(json);
+        jsonArray.put(index, jsonObject);
+
+        writer.write(jsonArray.toString());
+        writer.close();
     }
 
     @Override

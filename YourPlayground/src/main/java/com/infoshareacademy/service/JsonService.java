@@ -15,4 +15,6 @@ public interface JsonService {
     public void printGamesFromJson() throws IOException;
 
     public void printAsJson(Object o);
+
+    public void editJsonFile(int index, Game game) throws IOException;
 }
