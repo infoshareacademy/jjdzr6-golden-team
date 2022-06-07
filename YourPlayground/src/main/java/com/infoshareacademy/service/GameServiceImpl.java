@@ -1,10 +1,8 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.GameForm;
+import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
-import com.infoshareacademy.model.SearchParams;
-import com.infoshareacademy.utils.GameType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,52 +10,32 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class GameServiceImpl implements GameService {
+public class GameServiceImpl implements GameService, GameTypeService {
 
     @Override
-    public Game createGame(GameForm gameForm, Game game) {
-
-        game.setName(gameForm.getName());
-        game.setType(gameForm.getType());
-        game.setMaxNumberOfPlayers(gameForm.getMaxNumberOfPlayers());
-        game.setGameLocation(gameForm.getGameLocation());
-        game.setDateOfGame(gameForm.getDateOfGame());
-        game.setGameOwner(gameForm.getGameOwner());
-        game.setGameForm(gameForm);
-
-        return game;
-    }
-
-    @Override
-    public SearchParams prepareSearchGame() {
-        SearchParams searchParams = new SearchParams();
+    public Game prepareSearchGame() {
+        Game searchedGame = new Game();
 
         System.out.println("Jakiej gry szukasz?");
         System.out.println("1. Sportowa\n2. Planszowa");
 
-        Scanner scanner = new Scanner(System.in);
-        int type = scanner.nextInt();
-        if (type == 1) {
-            searchParams.setGameType(GameType.SPORTS);
-        } else if (type == 2) {
-            searchParams.setGameType(GameType.BOARD);
-        } else {
-            System.out.println("ty baranie");
-        }
+        whichGameType(searchedGame);
 
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Podaj nazwę gry: ");
-        searchParams.setGameName(scanner.nextLine());
+        searchedGame.setName(scanner.nextLine());
 
         scanner = new Scanner(System.in);
         System.out.println("Podaj miasto gry: ");
-        searchParams.setMiasto(scanner.nextLine());
+        searchedGame.setGameLocation(new Location());
+        searchedGame.getGameLocation().setTown(scanner.nextLine());
 
-        return searchParams;
+        return searchedGame;
     }
 
     @Override
-    public void printFoundGames(SearchParams searchParams) throws IOException {
+    public void printFoundGames(Game searchedGame) throws IOException {
         FormServiceImpl formService = new FormServiceImpl();
 
         Game[] games = formService.fromJson();
@@ -70,8 +48,8 @@ public class GameServiceImpl implements GameService {
             System.out.println("Gry pasujące idealnie: ");
             int count = 0;
             for (Game game : games) {
-                if (game.getName() == searchParams.getGameName() && game.getGameLocation().getTown() == searchParams.getMiasto()
-                        && game.getType() == searchParams.getGameType()) {
+                if (game.getName().equals(searchedGame.getName()) && game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
+                        && game.getType() == searchedGame.getType()) {
                     count++;
                     System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
@@ -84,8 +62,8 @@ public class GameServiceImpl implements GameService {
             System.out.println("Gry pasujące co najmniej jednym parametrem: ");
             int count = 0;
             for (Game game : games) {
-                if (game.getName() == searchParams.getGameName() || game.getGameLocation().getTown() == searchParams.getMiasto()
-                        || game.getType() == searchParams.getGameType()) {
+                if (game.getName().equals(searchedGame.getName()) || game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
+                        || game.getType() == searchedGame.getType()) {
                     count++;
                     System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
@@ -110,10 +88,10 @@ public class GameServiceImpl implements GameService {
         FormServiceImpl formService = new FormServiceImpl();
         List<Game> listOfGames = new ArrayList<>();
 
-        System.out.print("Type your name: ");
+        System.out.println("Type your name: ");
         userName = scanner.nextLine();
 
-        System.out.print("Type your e-mail: ");
+        System.out.println("Type your e-mail: ");
         userMail = scanner.nextLine();
 
         System.out.println("Which game would you like to join?\n\r");

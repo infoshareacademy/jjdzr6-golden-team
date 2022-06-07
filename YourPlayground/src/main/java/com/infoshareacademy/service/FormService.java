@@ -6,6 +6,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public interface FormService {
-    public Game printForm() throws ParseException;
-    public void closeForm();
+    public Game createForm();
+    public void closeForm(Game game) throws IOException;
 }

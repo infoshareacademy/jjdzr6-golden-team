@@ -1,9 +1,6 @@
 package com.infoshareacademy.model;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-
-public class DateOfGame {
+public class GameDate {
 
     private String gameDate;
 

@@ -13,9 +13,8 @@ public class Game extends GameServiceImpl {
     private int maxNumberOfPlayers;
     private List<Player> players;
     private Location gameLocation;
-    private DateOfGame dateOfGame;
+    private GameDate dateOfGame;
     private Player gameOwner;
-    private GameForm gameForm;
 
     // Constructor
     public Game() {
@@ -44,7 +43,7 @@ public class Game extends GameServiceImpl {
         return gameLocation;
     }
 
-    public DateOfGame getDateOfGame() {
+    public GameDate getDateOfGame() {
         return dateOfGame;
     }
 
@@ -78,18 +77,11 @@ public class Game extends GameServiceImpl {
         this.gameLocation = gameLocation;
     }
 
-    public void setDateOfGame(DateOfGame dateOfGame) {
+    public void setDateOfGame(GameDate dateOfGame) {
         this.dateOfGame = dateOfGame;
     }
 
     public void setGameOwner(Player gameOwner) {
         this.gameOwner = gameOwner;
-    }
-    public GameForm getGameForm() {
-        return gameForm;
-    }
-
-    public void setGameForm(GameForm gameForm) {
-        this.gameForm = gameForm;
     }
 }

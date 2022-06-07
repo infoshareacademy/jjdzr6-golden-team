@@ -3,9 +3,9 @@ package com.infoshareacademy.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.GameForm;
+import com.infoshareacademy.model.GameDate;
+import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
-import com.infoshareacademy.utils.GameType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,70 +16,58 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.text.ParseException;
 import java.util.Scanner;
 
-public class FormServiceImpl implements FormService, JsonService {
+public class FormServiceImpl implements FormService, JsonService, GameTypeService {
 
-    public static final String RESOURCE_PATH ="src/main/resources";
+    public static final String RESOURCE_PATH ="YourPlayground/src/main/resources";
 
     @Override
-    public Game printForm() throws ParseException {
-        Game game = new Game();
-        game.setGameForm(new GameForm());
+    public Game createForm() {
+        Game formGame = new Game();
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Podaj swoje imię: ");
-        game.getGameForm().setGameOwner(new Player());
-        game.getGameForm().getGameOwner().setName(scanner.nextLine());
+        formGame.setGameOwner(new Player());
+        formGame.getGameOwner().setName(scanner.nextLine());
 
         System.out.println("Podaj swojego emaila: ");
-        game.getGameForm().getGameOwner().setMail(scanner.nextLine());
-        game.addPlayerToGame(game.getGameForm().getGameOwner(), game);
+        formGame.getGameOwner().setMail(scanner.nextLine());
+        formGame.addPlayerToGame(formGame.getGameOwner(), formGame);
 
-        System.out.println(game.getGameForm().getGameOwner());
-        System.out.println(game.getPlayers());
         System.out.println("Wybierz rodzaj gry: ");
         System.out.println("1. Sport");
         System.out.println("2. Board");
 
-        int type = scanner.nextInt();
-
-        if(type == 1)  {
-            game.getGameForm().setType(GameType.SPORTS);
-        }
-        else if (type == 2) {
-            game.getGameForm().setType(GameType.BOARD);
-        }
-        else System.out.println("ty baranie");
+        whichGameType(formGame);
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj nazwę gry: ");
-        game.getGameForm().setName(scanner.nextLine());
+        formGame.setName(scanner.nextLine());
 
         System.out.println("Podaj liczbę graczy: ");
-        game.getGameForm().setMaxNumberOfPlayers(scanner.nextInt());
+        formGame.setMaxNumberOfPlayers(scanner.nextInt());
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj miasto: ");
-        game.getGameForm().getGameLocation().setTown(scanner.nextLine());
+        formGame.setGameLocation(new Location());
+        formGame.getGameLocation().setTown(scanner.nextLine());
 
         scanner = new Scanner(System.in);
 
         System.out.println("Podaj datę gry (dd-mm-yyyy): ");
-        game.getGameForm().getDateOfGame().setGameDate(scanner.nextLine());
+        formGame.setDateOfGame(new GameDate());
+        formGame.getDateOfGame().setGameDate(scanner.nextLine());
 
-        game.createGame(game.getGameForm(), game);
-
-        return game;
+        return formGame;
     }
 
     @Override
-    public void closeForm() {
-        //TODO
+    public void closeForm(Game game) throws IOException {
+        saveToJsonFile(game);
     }
 
     @Override
