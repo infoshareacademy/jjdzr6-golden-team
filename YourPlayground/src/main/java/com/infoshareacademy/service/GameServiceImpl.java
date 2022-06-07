@@ -37,11 +37,14 @@ public class GameServiceImpl implements GameService {
         System.out.println("1. Sportowa\n2. Planszowa");
 
         Scanner scanner = new Scanner(System.in);
-        if (scanner.nextInt() == 1) {
+        int type = scanner.nextInt();
+        if (type == 1) {
             searchParams.setGameType(GameType.SPORTS);
-        } else if (scanner.nextInt() == 2) {
+        } else if (type == 2) {
             searchParams.setGameType(GameType.BOARD);
-        } else System.out.println("ty baranie");
+        } else {
+            System.out.println("ty baranie");
+        }
 
         scanner = new Scanner(System.in);
         System.out.println("Podaj nazwę gry: ");
