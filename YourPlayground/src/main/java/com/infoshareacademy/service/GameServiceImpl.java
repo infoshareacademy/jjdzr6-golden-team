@@ -51,7 +51,7 @@ public class GameServiceImpl implements GameService, GameTypeService {
                 if (game.getName().equals(searchedGame.getName()) && game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
                         && game.getType() == searchedGame.getType()) {
                     count++;
-                    System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
+                    System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s%n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
                             game.getGameLocation().getTown());
                 }
@@ -65,7 +65,7 @@ public class GameServiceImpl implements GameService, GameTypeService {
                 if (game.getName().equals(searchedGame.getName()) || game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
                         || game.getType() == searchedGame.getType()) {
                     count++;
-                    System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s\n",
+                    System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s%n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
                             game.getGameLocation().getTown());
                 }
