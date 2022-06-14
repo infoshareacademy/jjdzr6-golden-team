@@ -1,17 +1,16 @@
 package com.infoshareacademy.model;
 
+import com.google.gson.GsonBuilder;
+
 public class Location {
-    //region Fields
+    // Fields
     private double longitude;
     private double latitude;
-    //endregion
+    private String town;
 
-    //region Constructor
-    public Location(double longitude, double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public Location() {
+
     }
-    //endregion
 
     //region Getters&Setters
     public double getLongitude() {
@@ -30,13 +29,18 @@ public class Location {
         this.latitude = latitude;
     }
 
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
     //endregion
 
     @Override
     public String toString() {
-        return "Location{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                '}';
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

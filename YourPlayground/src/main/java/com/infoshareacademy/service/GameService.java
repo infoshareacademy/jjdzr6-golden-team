@@ -1,17 +1,21 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Location;
-import com.infoshareacademy.utils.GameType;
+import com.infoshareacademy.model.GameForm;
+import com.infoshareacademy.model.Player;
 
 public interface GameService {
     //region Methods
-    public Game createGame(String name, GameType type, int numberOfPlayers, Location gameLocation);
+    public Game createGame(GameForm gameForm);
 
     public void searchGame();
+
+    public void printGames();
 
     public void deleteGame();
 
     public void joinGame();
+
+    public void addPlayerToGame(Player player, Game game);
     //endregion
 }

@@ -1,6 +1,16 @@
 package com.infoshareacademy.utils;
 
 public enum GameType {
-    BOARD,
-    SPORT
+    BOARD {
+        @Override
+        public String toString() {
+            return "Board games";
+        }
+    },
+    SPORTS {
+        @Override
+        public String toString() {
+            return "Sport games";
+        }
+    }
 }
