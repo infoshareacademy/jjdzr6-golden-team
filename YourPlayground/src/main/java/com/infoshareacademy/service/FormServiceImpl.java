@@ -3,7 +3,6 @@ package com.infoshareacademy.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.GameDate;
 import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
 import org.json.JSONArray;
@@ -16,11 +15,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class FormServiceImpl implements FormService, JsonService, GameTypeService {
 
-    public static final String RESOURCE_PATH ="YourPlayground/src/main/resources";
+    public static final String RESOURCE_PATH ="src/main/resources/games.json";
 
     @Override
     public Game createForm() {
@@ -56,11 +56,12 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
         formGame.setGameLocation(new Location());
         formGame.getGameLocation().setTown(scanner.nextLine());
 
-        scanner = new Scanner(System.in);
+        //scanner = new Scanner(System.in);
 
-        System.out.println("Podaj datę gry (dd-mm-yyyy): ");
-        formGame.setDateOfGame(new GameDate());
-        formGame.getDateOfGame().setGameDate(scanner.nextLine());
+        //TODO
+        LocalDateTime gameDate = LocalDateTime.now();
+        formGame.setDateOfGame(gameDate);
+        System.out.println("Data gry (dd-mm-yyyy): " + formGame.getDateOfGame().toString());
 
         return formGame;
     }
@@ -82,7 +83,7 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
 
         Gson gson = new GsonBuilder().create();
 
-        Path filePath = Paths.get(RESOURCE_PATH.toString(), "games.json");
+        Path filePath = Paths.get(RESOURCE_PATH);
 
         String file = Files.readString(filePath);
 
@@ -96,7 +97,7 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
 
         Gson gson = new GsonBuilder().create();
 
-        Path filePath = Paths.get(RESOURCE_PATH.toString(), "games.json");
+        Path filePath = Paths.get(RESOURCE_PATH);
 
         Writer writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
@@ -118,7 +119,7 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
     @Override
     public void editJsonFile(int index, Game game) throws IOException {
         Gson gson = new GsonBuilder().create();
-        Path filePath = Paths.get(RESOURCE_PATH.toString(), "games.json");
+        Path filePath = Paths.get(RESOURCE_PATH);
         Writer writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
         String json = gson.toJson(game);

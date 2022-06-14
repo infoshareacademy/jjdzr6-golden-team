@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Game extends GameServiceImpl {
@@ -13,7 +14,7 @@ public class Game extends GameServiceImpl {
     private int maxNumberOfPlayers;
     private List<Player> players;
     private Location gameLocation;
-    private GameDate dateOfGame;
+    private LocalDateTime dateOfGame;
     private Player gameOwner;
 
     // Constructor
@@ -43,7 +44,7 @@ public class Game extends GameServiceImpl {
         return gameLocation;
     }
 
-    public GameDate getDateOfGame() {
+    public LocalDateTime getDateOfGame() {
         return dateOfGame;
     }
 
@@ -77,7 +78,7 @@ public class Game extends GameServiceImpl {
         this.gameLocation = gameLocation;
     }
 
-    public void setDateOfGame(GameDate dateOfGame) {
+    public void setDateOfGame(LocalDateTime dateOfGame) {
         this.dateOfGame = dateOfGame;
     }
 
