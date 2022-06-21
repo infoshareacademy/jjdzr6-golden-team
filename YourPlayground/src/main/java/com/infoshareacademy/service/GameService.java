@@ -7,14 +7,14 @@ import java.io.IOException;
 
 public interface GameService {
     //region Methods
-    public Game prepareSearchGame();
+    Game prepareSearchGame();
 
-    public void printFoundGames(Game searchedGame) throws IOException;
+    void printFoundGames(Game searchedGame) throws IOException;
 
-    public void deleteGame();
+    void deleteGame();
 
-    public void joinGame();
+    void joinGame();
 
-    public void addPlayerToGame(Player player, Game game);
+    void addPlayerToGame(Player player, Game game);
     //endregion
 }

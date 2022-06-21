@@ -15,7 +15,7 @@ public class App {
         FormServiceImpl formService = new FormServiceImpl();
         GameServiceImpl gameService = new GameServiceImpl();
 
-       // formService.closeForm(formService.createForm());
+        formService.closeForm(formService.createForm());
 
         gameService.printFoundGames(gameService.prepareSearchGame());
 

@@ -5,14 +5,14 @@ import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 public class Game extends GameServiceImpl {
     // Fields
     private String name;
     private GameType type;
     private int maxNumberOfPlayers;
-    private List<Player> players;
+    private Set<Player> players;
     private Location gameLocation;
     private LocalDateTime dateOfGame;
     private Player gameOwner;
@@ -53,7 +53,7 @@ public class Game extends GameServiceImpl {
         return gameOwner;
     }
 
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
     //endregion
@@ -70,7 +70,7 @@ public class Game extends GameServiceImpl {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Set<Player> players) {
         this.players = players;
     }
 

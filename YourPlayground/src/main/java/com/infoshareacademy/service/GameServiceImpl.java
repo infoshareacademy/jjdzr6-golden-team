@@ -5,10 +5,9 @@ import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
+import static javax.swing.text.html.HTML.Tag.S;
 
 public class GameServiceImpl implements GameService, GameTypeService {
 
@@ -109,7 +108,6 @@ public class GameServiceImpl implements GameService, GameTypeService {
 
         try {
             formService.editJsonFile(userInput, listOfGames.get(userInput));
-            System.out.println("You are added to the game!");
         } catch (IOException e) {
             System.out.println("File not found");
         }
@@ -119,11 +117,12 @@ public class GameServiceImpl implements GameService, GameTypeService {
     public void addPlayerToGame(Player player, Game game) {
 
         if (game.getPlayers() == null) {
-            List<Player> playerList = new ArrayList<>();
+            Set<Player> playerList = new HashSet<>();
             playerList.add(player);
             game.setPlayers(playerList);
         } else if (game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
             game.getPlayers().add(player);
+            System.out.println("You are added to the game.");
         } else {
             System.out.println("Game is full.");
         }

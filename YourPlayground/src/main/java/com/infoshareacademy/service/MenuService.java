@@ -2,13 +2,13 @@ package com.infoshareacademy.service;
 
 public interface MenuService {
 
-    public void drawMenu();
+    void drawMenu();
 
-    public void continueHandler(String s);
+    void continueHandler(String s);
 
-    public void exitHandler();
+    void exitHandler();
 
-    public void runMenu();
+    void runMenu();
 
-    public int userInput();
+    int userInput();
 }

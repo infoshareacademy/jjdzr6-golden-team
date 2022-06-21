@@ -1,6 +1,5 @@
 package com.infoshareacademy.model;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Player {

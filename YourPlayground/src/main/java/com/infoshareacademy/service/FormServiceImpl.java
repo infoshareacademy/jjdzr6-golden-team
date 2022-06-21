@@ -8,19 +8,20 @@ import com.infoshareacademy.model.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class FormServiceImpl implements FormService, JsonService, GameTypeService {
 
-    public static final String RESOURCE_PATH ="src/main/resources/games.json";
+    public static final String RESOURCE_PATH = "YourPlayground/src/main/resources/games.json";
 
     @Override
     public Game createForm() {
@@ -56,12 +57,15 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
         formGame.setGameLocation(new Location());
         formGame.getGameLocation().setTown(scanner.nextLine());
 
-        //scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
 
-        //TODO
-        LocalDateTime gameDate = LocalDateTime.now();
-        formGame.setDateOfGame(gameDate);
-        System.out.println("Data gry (dd-mm-yyyy): " + formGame.getDateOfGame().toString());
+        System.out.println("Podaj datę gry (dd-mm-yyyy hh:mm): ");
+        String gameDate = scanner.nextLine();
+        try {
+            formGame.setDateOfGame(parseDate(gameDate));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         return formGame;
     }
@@ -73,9 +77,7 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
 
     @Override
     public JSONArray toJsonArray() throws IOException {
-
-        JSONArray jsonArray = new JSONArray(fromJson());
-        return jsonArray;
+        return new JSONArray(fromJson());
     }
 
     @Override
@@ -87,31 +89,42 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
 
         String file = Files.readString(filePath);
 
-        Game[] games = gson.fromJson(file, Game[].class);
-
-        return games;
+        return gson.fromJson(file, Game[].class);
     }
 
     @Override
-    public void saveToJsonFile(Game game) throws IOException {
+    public void saveToJsonFile(Game game) {
 
         Gson gson = new GsonBuilder().create();
 
-        Path filePath = Paths.get(RESOURCE_PATH);
+        Writer writer = null;
+        try {
+            Path filePath = Paths.get(RESOURCE_PATH);
 
-        Writer writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+            writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
-        String json = gson.toJson(game);
+            String json = gson.toJson(game);
 
-        JSONObject jsonObject = new JSONObject(json);
+            JSONObject jsonObject = new JSONObject(json);
 
-        JSONArray jsonArray = toJsonArray();
+            JSONArray jsonArray = toJsonArray();
 
-        jsonArray.put(jsonObject);
+            jsonArray.put(jsonObject);
 
-        writer.write(jsonArray.toString());
-
-        writer.close();
+            writer.write(jsonArray.toString());
+        } catch (NoSuchFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         System.out.println("Game written to JSON file.");
     }
@@ -119,16 +132,41 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
     @Override
     public void editJsonFile(int index, Game game) throws IOException {
         Gson gson = new GsonBuilder().create();
-        Path filePath = Paths.get(RESOURCE_PATH);
-        Writer writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
-        String json = gson.toJson(game);
-        JSONArray jsonArray = toJsonArray();
-        JSONObject jsonObject = new JSONObject(json);
-        jsonArray.put(index, jsonObject);
+        Writer writer = null;
 
-        writer.write(jsonArray.toString());
-        writer.close();
+        try {
+            Path filePath = Paths.get(RESOURCE_PATH);
+
+            writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+
+            String json = gson.toJson(game);
+
+            JSONArray jsonArray = toJsonArray();
+
+            JSONObject jsonObject = new JSONObject(json);
+
+            jsonArray.put(index, jsonObject);
+
+            writer.write(jsonArray.toString());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } finally {
+            if (writer != null) {
+
+                try {
+                    writer.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -145,5 +183,12 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
     @Override
     public void printAsJson(Object o) {
         System.out.println(new Gson().toJson(o));
+    }
+
+    public LocalDateTime parseDate (String stringDate) throws ParseException {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime date = LocalDateTime.parse(stringDate, formatter);
+        return date;
     }
 }
