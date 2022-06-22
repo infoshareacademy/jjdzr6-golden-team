@@ -1,21 +1,20 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.GameForm;
 import com.infoshareacademy.model.Player;
+
+import java.io.IOException;
 
 public interface GameService {
     //region Methods
-    public Game createGame(GameForm gameForm);
+    Game prepareSearchGame();
 
-    public void searchGame();
+    void printFoundGames(Game searchedGame) throws IOException;
 
-    public void printGames();
+    void deleteGame();
 
-    public void deleteGame();
+    void joinGame();
 
-    public void joinGame();
-
-    public void addPlayerToGame(Player player, Game game);
+    void addPlayerToGame(Player player, Game game);
     //endregion
 }

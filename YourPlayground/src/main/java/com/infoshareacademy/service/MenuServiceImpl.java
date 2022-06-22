@@ -11,8 +11,8 @@ public class MenuServiceImpl implements MenuService {
     private GameType gameType;
 
     public void printGameTypes () {
-        System.out.println("1. " + gameType.BOARD.toString());
-        System.out.println("2. " + gameType.SPORTS.toString());
+        System.out.println("1. " + gameType.BOARD);
+        System.out.println("2. " + gameType.SPORTS);
     }
     @Override
     public void drawMenu() {

@@ -4,18 +4,18 @@ import com.google.gson.GsonBuilder;
 import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 public class Game extends GameServiceImpl {
     // Fields
     private String name;
     private GameType type;
     private int maxNumberOfPlayers;
-    private List<Player> players;
+    private Set<Player> players;
     private Location gameLocation;
-    private DateOfGame dateOfGame;
+    private LocalDateTime dateOfGame;
     private Player gameOwner;
-    private GameForm gameForm;
 
     // Constructor
     public Game() {
@@ -24,16 +24,6 @@ public class Game extends GameServiceImpl {
     @Override
     public String toString() {
         return new GsonBuilder().setPrettyPrinting().create().toJson(this);
-    }
-
-    public void fillGame() {
-        this.name = gameForm.getName();
-        this.type = gameForm.getType();
-        this.maxNumberOfPlayers = gameForm.getMaxNumberOfPlayers();
-        this.players = gameForm.getPlayers();
-        this.gameLocation = gameForm.getGameLocation();
-        this.dateOfGame = gameForm.getDateOfGame();
-        this.gameOwner = gameForm.getGameOwner();
     }
 
     //region Getters
@@ -54,7 +44,7 @@ public class Game extends GameServiceImpl {
         return gameLocation;
     }
 
-    public DateOfGame getDateOfGame() {
+    public LocalDateTime getDateOfGame() {
         return dateOfGame;
     }
 
@@ -63,7 +53,7 @@ public class Game extends GameServiceImpl {
         return gameOwner;
     }
 
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
     //endregion
@@ -80,7 +70,7 @@ public class Game extends GameServiceImpl {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Set<Player> players) {
         this.players = players;
     }
 
@@ -88,18 +78,11 @@ public class Game extends GameServiceImpl {
         this.gameLocation = gameLocation;
     }
 
-    public void setDateOfGame(DateOfGame dateOfGame) {
+    public void setDateOfGame(LocalDateTime dateOfGame) {
         this.dateOfGame = dateOfGame;
     }
 
     public void setGameOwner(Player gameOwner) {
         this.gameOwner = gameOwner;
-    }
-    public GameForm getGameForm() {
-        return gameForm;
-    }
-
-    public void setGameForm(GameForm gameForm) {
-        this.gameForm = gameForm;
     }
 }
