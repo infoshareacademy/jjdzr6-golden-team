@@ -5,6 +5,7 @@ import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Game extends GameServiceImpl {
@@ -19,6 +20,7 @@ public class Game extends GameServiceImpl {
 
     // Constructor
     public Game() {
+        this.setPlayers(new HashSet<>());
     }
 
     @Override

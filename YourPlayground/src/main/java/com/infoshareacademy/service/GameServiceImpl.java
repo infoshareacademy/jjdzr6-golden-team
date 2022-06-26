@@ -101,27 +101,29 @@ public class GameServiceImpl implements GameService, GameTypeService {
 
         listOfGames= printFoundGames(prepareSearchGame());
 
-        System.out.println("Which game would you like to join?\n\r");
 
-        userInput = scanner.nextInt() - 1;
+        if(!listOfGames.isEmpty()) {
+            System.out.println("Which game would you like to join?\n\r");
+            userInput = scanner.nextInt() - 1;
 
-        addPlayerToGame(player, listOfGames.get(userInput));
+            addPlayerToGame(player, listOfGames.get(userInput));
 
-        try {
-            formService.editJsonFile(userInput, listOfGames.get(userInput));
-        } catch (IOException e) {
-            System.out.println("File not found");
-        }
+            System.out.println(listOfGames.get(userInput));
+
+            try {
+                formService.editJsonFile(userInput, listOfGames.get(userInput));
+            } catch (IOException e) {
+                System.out.println("File not found");
+            }
+        } else System.out.println("Nie ma takiej gry.");
+
+
     }
 
     @Override
     public void addPlayerToGame(Player player, Game game) {
 
-        if (game.getPlayers() == null) {
-            Set<Player> playerList = new HashSet<>();
-            playerList.add(player);
-            game.setPlayers(playerList);
-        } else if (game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
+        if (game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
             game.getPlayers().add(player);
             System.out.println("You are added to the game.");
         } else {

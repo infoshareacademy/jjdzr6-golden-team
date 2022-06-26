@@ -29,9 +29,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void continueHandler(String s) {
         String wantToContinue;
-        boolean goBack = false;
         Scanner scanner = new Scanner(System.in);
-        do {
+
+        while(true) {
             System.out.print("Do you want to continue? Y/N: ");
 
             wantToContinue = scanner.nextLine();
@@ -39,14 +39,13 @@ public class MenuServiceImpl implements MenuService {
             if (wantToContinue.equalsIgnoreCase("Y")) {
                 //TODO
                 System.out.println(s + "\r\n");
-                goBack = true;
+                break;
             } else if (wantToContinue.equalsIgnoreCase("N")) {
-                goBack = true;
-                System.out.println();
+                break;
             } else {
                 System.out.println("Select available options.\r\n");
             }
-        } while (!goBack);
+        }
     }
 
     @Override

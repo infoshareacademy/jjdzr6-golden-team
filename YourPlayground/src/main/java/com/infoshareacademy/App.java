@@ -1,7 +1,6 @@
 package com.infoshareacademy;
 
 import com.infoshareacademy.gui.Menu;
-import com.infoshareacademy.service.GameServiceImpl;
 import java.io.IOException;
 
 /**
@@ -13,4 +12,6 @@ public class App {
         Menu menu = new Menu();
         menu.runMenu();
     }
+
+
 }
