@@ -2,6 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.utils.GameType;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -74,17 +75,21 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void runMenu() {
+    public void runMenu() throws IOException {
         do {
             drawMenu();
 
+            GameServiceImpl gameService = new GameServiceImpl();
+            FormServiceImpl formService = new FormServiceImpl();
+
             switch (userInput()) {
                 case 1:
-                    continueHandler("Join game soon");
+                    continueHandler("You are about to join a game...");
+                    gameService.joinGame();
                     break;
                 case 2:
-                    continueHandler("Create game soon");
-                    //TODO
+                    continueHandler("Create game:");
+                    formService.closeForm(formService.createForm());
                     break;
                 case 3:
                     continueHandler("Map soon");

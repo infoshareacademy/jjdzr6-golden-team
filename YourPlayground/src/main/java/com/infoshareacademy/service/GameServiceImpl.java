@@ -34,9 +34,10 @@ public class GameServiceImpl implements GameService, GameTypeService {
     }
 
     @Override
-    public void printFoundGames(Game searchedGame) throws IOException {
+    public List<Game> printFoundGames(Game searchedGame) throws IOException {
         FormServiceImpl formService = new FormServiceImpl();
 
+        List<Game> foundGames = new ArrayList<>();
         Game[] games = formService.fromJson();
 
         System.out.println("Czy chcesz wyszukać grę ze wszystkimi parametrami? (Y/N)");
@@ -49,6 +50,7 @@ public class GameServiceImpl implements GameService, GameTypeService {
             for (Game game : games) {
                 if (game.getName().equals(searchedGame.getName()) && game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
                         && game.getType() == searchedGame.getType()) {
+                    foundGames.add(game);
                     count++;
                     System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s%n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
@@ -63,6 +65,7 @@ public class GameServiceImpl implements GameService, GameTypeService {
             for (Game game : games) {
                 if (game.getName().equals(searchedGame.getName()) || game.getGameLocation().getTown().equals(searchedGame.getGameLocation().getTown())
                         || game.getType() == searchedGame.getType()) {
+                    foundGames.add(game);
                     count++;
                     System.out.printf("%d. %s, Ilość graczy: %d/%d, Miasto: %s%n",
                             count, game.getName(), game.getPlayers().size(), game.getMaxNumberOfPlayers(),
@@ -70,7 +73,11 @@ public class GameServiceImpl implements GameService, GameTypeService {
                 }
             }
             System.out.println("To już wszystkie pasujące gry.");
-        } else System.out.println("ty baranie");
+
+
+        } else System.out.println("Sth went wrong...");
+
+        return foundGames;
     }
 
     @Override
@@ -79,32 +86,26 @@ public class GameServiceImpl implements GameService, GameTypeService {
     }
 
     @Override
-    public void joinGame() {
+    public void joinGame() throws IOException {
         int userInput = -1;
-        String userName;
-        String userMail;
+        Player player = new Player();
         Scanner scanner = new Scanner(System.in);
         FormServiceImpl formService = new FormServiceImpl();
         List<Game> listOfGames = new ArrayList<>();
 
         System.out.println("Type your name: ");
-        userName = scanner.nextLine();
+        player.setName(scanner.nextLine());
 
         System.out.println("Type your e-mail: ");
-        userMail = scanner.nextLine();
+        player.setMail(scanner.nextLine());
+
+        listOfGames= printFoundGames(prepareSearchGame());
 
         System.out.println("Which game would you like to join?\n\r");
 
-        try {
-            formService.printGamesFromJson();
-            listOfGames = Arrays.asList(formService.fromJson());
-        } catch (IOException e) {
-            System.out.println("File not found");
-        }
-
         userInput = scanner.nextInt() - 1;
 
-        addPlayerToGame(new Player(userName, userMail), listOfGames.get(userInput));
+        addPlayerToGame(player, listOfGames.get(userInput));
 
         try {
             formService.editJsonFile(userInput, listOfGames.get(userInput));

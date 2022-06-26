@@ -1,5 +1,7 @@
 package com.infoshareacademy.service;
 
+import java.io.IOException;
+
 public interface MenuService {
 
     void drawMenu();
@@ -8,7 +10,7 @@ public interface MenuService {
 
     void exitHandler();
 
-    void runMenu();
+    void runMenu() throws IOException;
 
     int userInput();
 }

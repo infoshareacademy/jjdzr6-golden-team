@@ -4,16 +4,17 @@ import com.infoshareacademy.model.Game;
 import com.infoshareacademy.model.Player;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface GameService {
     //region Methods
     Game prepareSearchGame();
 
-    void printFoundGames(Game searchedGame) throws IOException;
+    List<Game> printFoundGames(Game searchedGame) throws IOException;
 
     void deleteGame();
 
-    void joinGame();
+    void joinGame() throws IOException;
 
     void addPlayerToGame(Player player, Game game);
     //endregion
