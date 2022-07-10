@@ -3,11 +3,13 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.model.Game;
 import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import static javax.swing.text.html.HTML.Tag.S;
 
 public class GameServiceImpl implements GameService, GameTypeService {
 
