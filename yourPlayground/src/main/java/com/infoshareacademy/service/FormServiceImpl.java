@@ -8,7 +8,6 @@ import com.infoshareacademy.model.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -116,8 +115,6 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
             jsonArray.put(jsonObject);
 
             writer.write(jsonArray.toString());
-        } catch (NoSuchFileException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -153,9 +150,6 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
             jsonArray.put(index, jsonObject);
 
             writer.write(jsonArray.toString());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -193,10 +187,9 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
         System.out.println(new Gson().toJson(o));
     }
 
-    public LocalDateTime parseDate (String stringDate) throws ParseException {
+    public LocalDateTime parseDate (String stringDate) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime date = LocalDateTime.parse(stringDate, formatter);
-        return date;
+        return LocalDateTime.parse(stringDate, formatter);
     }
 }

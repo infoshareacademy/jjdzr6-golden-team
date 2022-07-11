@@ -2,8 +2,6 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.model.Game;
 import com.infoshareacademy.utils.GameType;
-import org.springframework.stereotype.Service;
-
 import java.util.Scanner;
 
 
