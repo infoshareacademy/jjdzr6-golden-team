@@ -24,7 +24,7 @@ import java.util.Scanner;
 @Component
 public class FormServiceImpl implements FormService, JsonService, GameTypeService {
 
-    public static final String RESOURCE_PATH = "src/main/resources/games.json";
+    public static final String RESOURCE_PATH = "YourPlayground/src/main/resources/games.json";
 
     @Override
     public Game createForm() {

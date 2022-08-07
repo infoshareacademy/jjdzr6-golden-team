@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 
@@ -27,6 +27,12 @@ public class Game extends GameServiceImpl {
     // Constructor
     public Game() {
         this.setPlayers(new HashSet<>());
+    }
+
+    public Game(String name, int maxNumberOfPlayers, GameType gameType) {
+        this.name = name;
+        this.maxNumberOfPlayers = maxNumberOfPlayers;
+        this.type = gameType;
     }
 
     @Override
