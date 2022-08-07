@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -14,8 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 
-public class Game extends GameServiceImpl {
+public class Game extends GameServiceImpl implements Entity<Integer> {
     // Fields
+    private Integer id;
     private String name;
     private GameType type;
     private int maxNumberOfPlayers;
@@ -40,4 +43,13 @@ public class Game extends GameServiceImpl {
         return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

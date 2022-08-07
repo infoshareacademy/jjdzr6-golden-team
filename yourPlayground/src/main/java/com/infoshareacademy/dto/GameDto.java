@@ -1,6 +1,5 @@
 package com.infoshareacademy.dto;
 
-import com.infoshareacademy.model.Location;
 import com.infoshareacademy.model.Player;
 import com.infoshareacademy.utils.GameType;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Data
@@ -16,14 +16,22 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class GameDto {
-    //location rozbic na 3 itp.
+
+    private Integer id;
 
     private String name;
-   /* private GameType type;
+    private String type;
     private int maxNumberOfPlayers;
-    private Set<Player> players;
-    private Location gameLocation;
-    private LocalDateTime dateOfGame;
-    private Player gameOwner;*/
+    //private Set<Player> players;
+
+    private String town;
+    private double latitude;
+    private double longitude;
+
+    private String date;
+    private String time;
+
+    private String playerName;
+    private String email;
 
 }

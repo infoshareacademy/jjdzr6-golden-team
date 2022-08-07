@@ -18,9 +18,45 @@
     <h1 th:text="'The Game'"></h1>
     <div>
         <form th:object="${game}" th:action="@{/games/new}" method="post">
-            <label th:for="name_input_id" th:text="'name'"></label>
+            <label th:for="name_input_id" th:text="'Name'"></label>
             <br>
             <input type="text" id="name_input_id" th:field="*{name}">
+            <br>
+            <label th:for="type_input_id" th:text="'Type'"></label>
+            <br>
+            <input type="text" id="type_input_id" th:field="*{type}">
+            <br>
+            <label th:for="town_input_id" th:text="'Town'"></label>
+            <br>
+            <input type="text" id="town_input_id" th:field="*{town}">
+            <br>
+            <label th:for="longitude_input_id" th:text="'longitude'"></label>
+            <br>
+            <input type="text" id="longitude_input_id" th:field="*{longitude}">
+            <br>
+            <label th:for="latitude_input_id" th:text="'latitude'"></label>
+            <br>
+            <input type="text" id="latitude_input_id" th:field="*{latitude}">
+            <br>
+            <label th:for="maxNumberOfPlayers_input_id" th:text="'maxNumberOfPlayers'"></label>
+            <br>
+            <input type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
+            <br>
+            <label th:for="date_input_id" th:text="'date'"></label>
+            <br>
+            <input type="date" id="date_input_id" th:field="*{date}">
+            <br>
+            <label th:for="time_input_id" th:text="'time'"></label>
+            <br>
+            <input type="time" id="time_input_id" th:field="*{time}">
+            <br>
+            <label th:for="playerName_input_id" th:text="'playerName'"></label>
+            <br>
+            <input type="text" id="playerName_input_id" th:field="*{playerName}">
+            <br>
+            <label th:for="email_input_id" th:text="'email'"></label>
+            <br>
+            <input type="email" id="email_input_id" th:field="*{email}">
             <br>
             <button type="submit" class="btn btn-primary" th:text="'Submit'"></button>
         </form>
