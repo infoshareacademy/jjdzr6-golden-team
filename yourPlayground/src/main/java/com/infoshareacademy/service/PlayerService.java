@@ -1,9 +1,13 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.entity.Role;
+import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,16 +15,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PlayerService implements UserDetailsService {
 
     private final PlayerRepository playerRepository;
-
-    public PlayerService(@Autowired PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
+    private final PlayerMapper playerMapper;
 
 
     @Override
@@ -32,6 +35,11 @@ public class PlayerService implements UserDetailsService {
 
     public List<PlayerDto> getUsers() {
         return playerRepository.findAll().stream().map(this::map).map(this::toDto).collect(Collectors.toList());
+    }
+
+    public PlayerDto findByUsername(String username) {
+        Optional<Player> player = playerRepository.findByUsername(username);
+        return playerMapper.toDto(player.get());
     }
 
     private SecureUser map(Player player) {
