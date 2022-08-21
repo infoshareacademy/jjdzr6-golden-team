@@ -30,8 +30,8 @@ public class Player {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Set<Role> roles;
 
 

@@ -33,18 +33,18 @@ public class Game extends GameServiceImpl {
     @Column
     private int maxNumberOfPlayers;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "players_id", referencedColumnName = "id")
     private Set<Player> players;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location gameLocation;
 
     @Column
     private LocalDateTime dateOfGame;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Player gameOwner;
 

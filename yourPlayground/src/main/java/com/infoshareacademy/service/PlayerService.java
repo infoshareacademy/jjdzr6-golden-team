@@ -39,7 +39,7 @@ public class PlayerService implements UserDetailsService {
         secure.setId(player.getId());
         secure.setUsername(player.getUsername());
         secure.setPassword(player.getPassword());
-        secure.setRoles(player.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
+        secure.setRoles(player.getRoles());
         return secure;
     }
 

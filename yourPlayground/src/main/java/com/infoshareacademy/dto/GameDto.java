@@ -1,5 +1,6 @@
 package com.infoshareacademy.dto;
 
+import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.utils.GameType;
 import lombok.*;
@@ -22,13 +23,11 @@ public class GameDto {
     private int maxNumberOfPlayers;
     private Set<PlayerDto> players;
 
-    private String town;
-    private double latitude;
-    private double longitude;
+    private Location gameLocation;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @FutureOrPresent
-    private LocalDateTime dateTime;
+    private LocalDateTime dateOfGame;
 
     private Player gameOwner;
 

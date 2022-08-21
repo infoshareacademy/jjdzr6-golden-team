@@ -24,10 +24,8 @@ public class GameMapper {
                 .name(game.getName())
                 .type(game.getType())
                 .maxNumberOfPlayers(game.getMaxNumberOfPlayers())
-                .dateTime(game.getDateOfGame())
-                .town(game.getGameLocation().getTown())
-                .latitude(game.getGameLocation().getLatitude())
-                .longitude(game.getGameLocation().getLongitude())
+                .dateOfGame(game.getDateOfGame())
+                .gameLocation(game.getGameLocation())
                 .gameOwner(game.getGameOwner())
                 .players(game.getPlayers().stream()
                         .map(entity -> {
@@ -45,10 +43,8 @@ public class GameMapper {
                 .name(gameDto.getName())
                 .type(gameDto.getType())
                 .maxNumberOfPlayers(gameDto.getMaxNumberOfPlayers())
-                .dateOfGame(gameDto.getDateTime())
-                .gameLocation(new Location(gameDto.getLongitude(),
-                        gameDto.getLatitude(),
-                        gameDto.getTown()))
+                .dateOfGame(gameDto.getDateOfGame())
+                .gameLocation(gameDto.getGameLocation())
                 .gameOwner(gameDto.getGameOwner())
                 .players(gameDto.getPlayers().stream()
                         .map(dto -> {

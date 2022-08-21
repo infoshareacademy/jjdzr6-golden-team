@@ -1,8 +1,10 @@
 package com.infoshareacademy.dto;
 
+import com.infoshareacademy.entity.Role;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -13,6 +15,6 @@ public class PlayerDto {
     private Integer id;
     private String username;
     private String mail;
-    private List<String> roles;
+    private Set<Role> roles;
 
 }

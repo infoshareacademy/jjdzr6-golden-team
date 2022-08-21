@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.entity.Role;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -15,7 +17,7 @@ public class SecureUser implements UserDetails {
     private Integer id;
     private String username;
     private String password;
-    private List<String> roles;
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
