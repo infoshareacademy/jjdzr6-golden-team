@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title th:text="'Game'"></title>
+</head>
+<body>
+
+<div class="container-md">
+    <h1 th:text="'The Game'"></h1>
+    <div>
+        <form th:object="${game}" th:action="@{/games/new}" method="post">
+            <label th:for="name_input_id" th:text="'Name'"></label>
+            <br>
+            <input type="text" id="name_input_id" th:field="*{name}">
+            <br>
+            <label th:for="type_input_id" th:text="'Type'"></label>
+            <br>
+            <select id="type_input_id" th:field="*{type}">
+                <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
+                        th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
+            </select>
+            <br>
+            <label th:for="town_input_id" th:text="'Town'"></label>
+            <br>
+            <input type="text" id="town_input_id" th:field="*{gameLocation.town}">
+            <br>
+            <label th:for="longitude_input_id" th:text="'longitude'"></label>
+            <br>
+            <input type="text" id="longitude_input_id" th:field="*{gameLocation.longitude}">
+            <br>
+            <label th:for="latitude_input_id" th:text="'latitude'"></label>
+            <br>
+            <input type="text" id="latitude_input_id" th:field="*{gameLocation.latitude}">
+            <br>
+            <label th:for="maxNumberOfPlayers_input_id" th:text="'maxNumberOfPlayers'"></label>
+            <br>
+            <input type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
+            <br>
+            <label th:for="date_input_id" th:text="'date'"></label>
+            <br>
+            <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
+                </ul>
+            </div>
+            <input type="datetime-local" id="date_input_id" th:field="*{dateOfGame}">
+            <br>
+            <button type="submit" class="btn btn-primary" th:text="'Submit'"></button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+</html>
