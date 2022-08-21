@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.model.Game;
+import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.utils.GameType;
 import java.util.Scanner;
 

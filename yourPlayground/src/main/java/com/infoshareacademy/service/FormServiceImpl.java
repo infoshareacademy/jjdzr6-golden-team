@@ -2,19 +2,17 @@ package com.infoshareacademy.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Location;
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Location;
+import com.infoshareacademy.entity.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -34,7 +32,7 @@ public class FormServiceImpl implements FormService, JsonService, GameTypeServic
 
         System.out.println("Podaj swoje imię: ");
         formGame.setGameOwner(new Player());
-        formGame.getGameOwner().setName(scanner.nextLine());
+        formGame.getGameOwner().setUsername(scanner.nextLine());
 
         System.out.println("Podaj swojego emaila: ");
         formGame.getGameOwner().setMail(scanner.nextLine());

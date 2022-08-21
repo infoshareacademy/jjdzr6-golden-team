@@ -2,13 +2,14 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.mappers.GameMapper;
-import com.infoshareacademy.model.Game;
+import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,9 +30,9 @@ public class GameServiceTH {
        gameRepository.save(game);
     }
 
-    public GameDto find(Integer id) {
-        Game game = gameRepository.findById(id);
-        return gameMapper.toDto(game);
+    public GameDto findById(Integer id) {
+        Optional<Game> game = gameRepository.findById(id);
+        return gameMapper.toDto(game.get());
     }
 
     public List<GameDto> findAll() {

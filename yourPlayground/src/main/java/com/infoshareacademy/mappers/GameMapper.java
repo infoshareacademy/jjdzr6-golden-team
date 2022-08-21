@@ -1,14 +1,19 @@
 package com.infoshareacademy.mappers;
 
 import com.infoshareacademy.dto.GameDto;
-import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Location;
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Location;
+import com.infoshareacademy.entity.Player;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import java.util.stream.Collectors;
+import java.util.List;
+
 
 @Component
 public class GameMapper {
@@ -17,42 +22,43 @@ public class GameMapper {
         return GameDto.builder()
                 .id(game.getId())
                 .name(game.getName())
-                /*.type(game.getType())*/
+                .type(game.getType())
                 .maxNumberOfPlayers(game.getMaxNumberOfPlayers())
-                /*.date(LocalDate.of(game.getDateOfGame().getYear(),
-                        game.getDateOfGame().getMonth(),
-                        game.getDateOfGame().getDayOfMonth()))
-                .time(LocalTime.of(game.getDateOfGame().getHour(),
-                        game.getDateOfGame().getMinute()))*/
+                .dateTime(game.getDateOfGame())
                 .town(game.getGameLocation().getTown())
                 .latitude(game.getGameLocation().getLatitude())
                 .longitude(game.getGameLocation().getLongitude())
-                .playerName(game.getGameOwner().getName())
-                .email(game.getGameOwner().getMail())
-                //players to tak jak elements
-                /*.players(game.getPlayers())*/
+                .gameOwner(game.getGameOwner())
+                .players(game.getPlayers().stream()
+                        .map(entity -> {
+                            PlayerDto playerDto = new PlayerDto();
+                            playerDto.setId(entity.getId());
+                            playerDto.setUsername(entity.getUsername());
+                            return playerDto;
+                        }).collect(Collectors.toSet()))
                 .build();
     }
 
     public Game toEntity(GameDto gameDto) {
-        System.out.println(gameDto);
-
         Game game = Game.builder()
                 .id(gameDto.getId())
                 .name(gameDto.getName())
-                /*.type(gameDto.getType())*/
+                .type(gameDto.getType())
                 .maxNumberOfPlayers(gameDto.getMaxNumberOfPlayers())
-                .dateOfGame(LocalDateTime.of(LocalDate.parse(gameDto.getDate()),
-                        LocalTime.parse(gameDto.getTime())))
+                .dateOfGame(gameDto.getDateTime())
                 .gameLocation(new Location(gameDto.getLongitude(),
                         gameDto.getLatitude(),
                         gameDto.getTown()))
-                .gameOwner(new Player(gameDto.getPlayerName(),
-                        gameDto.getEmail()))
-                /*.players(gameDto.getPlayers())*/
+                .gameOwner(gameDto.getGameOwner())
+                .players(gameDto.getPlayers().stream()
+                        .map(dto -> {
+                            Player player = new Player();
+                            player.setId(dto.getId());
+                            player.setUsername(dto.getUsername());
+                            return player;
+                        }).collect(Collectors.toSet()))
                 .build();
 
-        System.out.println(game);
         return game;
     }
 }

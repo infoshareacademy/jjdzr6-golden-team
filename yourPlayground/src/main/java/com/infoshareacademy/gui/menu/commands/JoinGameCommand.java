@@ -2,8 +2,8 @@ package com.infoshareacademy.gui.menu.commands;
 
 import com.infoshareacademy.gui.menu.ConsoleCommand;
 import com.infoshareacademy.gui.menu.ContinueHandler;
-import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.service.FormServiceImpl;
 import com.infoshareacademy.service.GameServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ class JoinGameCommand implements ConsoleCommand {
             List<Game> listOfGames = new ArrayList<>();
 
             System.out.println("Type your name: ");
-            player.setName(scanner.nextLine());
+            player.setUsername(scanner.nextLine());
 
             System.out.println("Type your e-mail: ");
             player.setMail(scanner.nextLine());

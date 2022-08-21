@@ -1,14 +1,12 @@
 package com.infoshareacademy.dto;
 
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.utils.GameType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import javax.validation.constraints.FutureOrPresent;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -20,18 +18,18 @@ public class GameDto {
     private Integer id;
 
     private String name;
-    private String type;
+    private GameType type;
     private int maxNumberOfPlayers;
-    //private Set<Player> players;
+    private Set<PlayerDto> players;
 
     private String town;
     private double latitude;
     private double longitude;
 
-    private String date;
-    private String time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @FutureOrPresent
+    private LocalDateTime dateTime;
 
-    private String playerName;
-    private String email;
+    private Player gameOwner;
 
 }

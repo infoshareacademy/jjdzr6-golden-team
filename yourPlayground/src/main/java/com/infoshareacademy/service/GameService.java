@@ -1,7 +1,7 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Player;
 import java.io.IOException;
 import java.util.List;
 

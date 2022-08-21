@@ -1,8 +1,8 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.model.Game;
-import com.infoshareacademy.model.Location;
-import com.infoshareacademy.model.Player;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Location;
+import com.infoshareacademy.entity.Player;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
