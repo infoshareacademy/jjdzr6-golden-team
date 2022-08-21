@@ -40,7 +40,7 @@ public class GameMapper {
     }
 
     public Game toEntity(GameDto gameDto) {
-        Game game = Game.builder()
+        return Game.builder()
                 .id(gameDto.getId())
                 .name(gameDto.getName())
                 .type(gameDto.getType())
@@ -58,7 +58,5 @@ public class GameMapper {
                             return player;
                         }).collect(Collectors.toSet()))
                 .build();
-
-        return game;
     }
 }
