@@ -54,12 +54,7 @@ public class GameController {
                            BindingResult bindingResult) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getName());
-        System.out.println(playerRepository.findByUsername(authentication.getName()).toString());
-
         Player gameOwner = playerRepository.findByUsername(authentication.getName()).get();
-
-        System.out.println(gameOwner.toString());
 
         if(bindingResult.hasErrors()) {
             return "game-form";
