@@ -1,10 +1,7 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.dto.PlayerDto;
-import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Player;
-import com.infoshareacademy.entity.Role;
 import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +54,10 @@ public class PlayerService implements UserDetailsService {
         dto.setUsername(user.getUsername());
         dto.setRoles(user.getRoles());
         return dto;
+    }
+
+    //TODO make save return true or false if saved or not
+    public void savePlayer(PlayerDto playerDto) {
+        playerRepository.save(playerMapper.toEntity(playerDto));
     }
 }

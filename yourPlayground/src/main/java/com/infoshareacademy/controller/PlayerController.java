@@ -30,7 +30,7 @@ public class PlayerController {
 
     public String players(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Player player = playerRepository.findByUsername(authentication.getName()).get();
+        Player player = playerRepository.findByUsername(authentication.getName()).orElseThrow();
 
         model.addAttribute("player", playerService.findByUsername(player.getUsername()));
         return "player";
