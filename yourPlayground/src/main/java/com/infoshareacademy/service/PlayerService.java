@@ -69,7 +69,7 @@ public class PlayerService implements UserDetailsService {
 
         entityToSave.setRoles(Set.of(optionalRole.get()));
 
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder(); // todo Autowire
 
         entityToSave.setPassword(encoder.encode(entityToSave.getPassword()));
 
