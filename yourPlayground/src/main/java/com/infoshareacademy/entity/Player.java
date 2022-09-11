@@ -1,11 +1,13 @@
 package com.infoshareacademy.entity;
 
 import com.google.gson.GsonBuilder;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.persistence.Entity;
-
+import javax.persistence.*;
 import java.util.Set;
 
 
@@ -31,7 +33,9 @@ public class Player {
     private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "roles_id", referencedColumnName = "id")
+    @JoinTable(name = "players_roles",
+            joinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<Role> roles;
 
 
