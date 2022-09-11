@@ -23,7 +23,7 @@ public class PlayerMapper {
                 .id(playerDto.getId())
                 .username(playerDto.getUsername())
                 .mail(playerDto.getMail())
-                .roles(new HashSet<>(playerDto.getRoles()))
+                .password(playerDto.getPassword())
                 .build();
     }
 }

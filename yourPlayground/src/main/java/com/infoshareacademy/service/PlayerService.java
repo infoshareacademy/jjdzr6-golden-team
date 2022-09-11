@@ -2,23 +2,29 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.entity.Role;
 import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
+import com.infoshareacademy.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PlayerService implements UserDetailsService {
 
     private final PlayerRepository playerRepository;
+    private final RoleRepository roleRepository;
     private final PlayerMapper playerMapper;
 
 
@@ -58,6 +64,15 @@ public class PlayerService implements UserDetailsService {
 
     //TODO make save return true or false if saved or not
     public void savePlayer(PlayerDto playerDto) {
-        playerRepository.save(playerMapper.toEntity(playerDto));
+        Player entityToSave = playerMapper.toEntity(playerDto); // todo password error, check thymeleaf or mapper
+        Optional<Role> optionalRole = roleRepository.findByName("USER"); //todo throw exc
+
+        entityToSave.setRoles(Set.of(optionalRole.get()));
+
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        entityToSave.setPassword(encoder.encode(entityToSave.getPassword()));
+
+        playerRepository.save(entityToSave);
     }
 }

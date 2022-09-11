@@ -29,9 +29,9 @@ public class SignUpController {
     }
 
     @PostMapping("/registration")
-    public String savePlayer(@Valid @ModelAttribute("task") PlayerDto userDto, BindingResult bindingResult) {
+    public String savePlayer(@Valid @ModelAttribute("user") PlayerDto userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "task-form";
+            return "user-form";
         }
         playerService.savePlayer(userDto);
         return "redirect:/dashboard";
