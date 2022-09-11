@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -31,11 +30,12 @@ public class PlayerService implements UserDetailsService {
     }
 
     public List<PlayerDto> getUsers() {
-        return playerRepository.findAll().stream().map(this::map).map(this::toDto).collect(Collectors.toList());
+        return playerRepository.findAll().stream().map(this::map).map(this::toDto).toList();
     }
 
     public PlayerDto findByUsername(String username) {
         Optional<Player> player = playerRepository.findByUsername(username);
+
         return playerMapper.toDto(player.get());
     }
 
