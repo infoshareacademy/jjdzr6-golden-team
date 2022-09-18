@@ -7,7 +7,6 @@ import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
 import com.infoshareacademy.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -77,9 +76,6 @@ public class PlayerService implements UserDetailsService {
     }
 
     public Optional<PlayerDto> findPlayerByUsername (String username) {
-        if(playerRepository.findByUsername(username).isPresent()) { //TODO Optional metoda map()
-            return Optional.of(playerMapper.toDto(playerRepository.findByUsername(username).get()));
-        }
-        return Optional.empty();
+        return playerRepository.findByUsername(username).map(playerMapper::toDto);
     }
 }
