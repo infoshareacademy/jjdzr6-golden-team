@@ -64,10 +64,10 @@ public class PlayerService implements UserDetailsService {
 
     //TODO make save return true or false if saved or not
     public void savePlayer(PlayerDto playerDto) {
-        Player entityToSave = playerMapper.toEntity(playerDto); // todo password error, check thymeleaf or mapper
+        Player entityToSave = playerMapper.toEntity(playerDto);
         Optional<Role> optionalRole = roleRepository.findByName("USER"); //todo throw exc
 
-        entityToSave.setRoles(Set.of(optionalRole.get()));
+        optionalRole.ifPresent(role -> entityToSave.setRoles(Set.of(role)));
 
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder(); // todo Autowire
 
