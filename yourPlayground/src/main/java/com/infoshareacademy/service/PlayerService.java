@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 public class PlayerService implements UserDetailsService {
 
     private final PlayerRepository playerRepository;
@@ -65,14 +65,21 @@ public class PlayerService implements UserDetailsService {
     //TODO make save return true or false if saved or not
     public void savePlayer(PlayerDto playerDto) {
         Player entityToSave = playerMapper.toEntity(playerDto);
-        Optional<Role> optionalRole = roleRepository.findByName("USER"); //todo throw exc
+        Optional<Role> optionalRole = roleRepository.findByName("USER"); //TODO throw exc
 
         optionalRole.ifPresent(role -> entityToSave.setRoles(Set.of(role)));
 
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder(); // todo Autowire
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder(); //TODO Autowire
 
         entityToSave.setPassword(encoder.encode(entityToSave.getPassword()));
 
         playerRepository.save(entityToSave);
+    }
+
+    public Optional<PlayerDto> findPlayerByUsername (String username) {
+        if(playerRepository.findByUsername(username).isPresent()) { //TODO Optional metoda map()
+            return Optional.of(playerMapper.toDto(playerRepository.findByUsername(username).get()));
+        }
+        return Optional.empty();
     }
 }

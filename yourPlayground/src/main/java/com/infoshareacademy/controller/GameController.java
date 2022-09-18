@@ -1,11 +1,14 @@
 package com.infoshareacademy.controller;
 
 import com.infoshareacademy.dto.GameDto;
+import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.mappers.GameMapper;
 
+import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
 import com.infoshareacademy.service.GameServiceTH;
+import com.infoshareacademy.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -28,7 +31,9 @@ public class GameController {
 
     private final GameServiceTH gameService;
 
-    private final PlayerRepository playerRepository;
+    private final PlayerService playerService;
+
+    private final PlayerMapper playerMapper;
 
     @GetMapping("{id}")
     public String getGame(@PathVariable Integer id, Model model) throws IOException {
@@ -54,7 +59,8 @@ public class GameController {
                            BindingResult bindingResult) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Player gameOwner = playerRepository.findByUsername(authentication.getName()).get();
+        PlayerDto gameOwnerDto = playerService.findByUsername(authentication.getName());
+        Player gameOwner = playerMapper.toEntity(gameOwnerDto);
 
         if(bindingResult.hasErrors()) {
             return "game-form";
