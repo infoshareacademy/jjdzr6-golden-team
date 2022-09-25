@@ -1,12 +1,9 @@
 package com.infoshareacademy.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String SIGN_IN_PAGE = "/sign-in";
     private static final String SIGN_IN_API = "/api/sign-in";
     private static final String SIGN_OUT_API = "/api/sign-out";
+    private static final String SIGN_UP = "/registration";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -25,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/bootstrap/**", "/assets/bootstrap-solid.svg",
                         HOME_PAGE,
                         SIGN_IN_PAGE,
-                        SIGN_IN_API).permitAll()
+                        SIGN_IN_API,
+                        SIGN_UP).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -41,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl(HOME_PAGE);
     }
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication()
@@ -52,5 +51,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password(encoder.encode("user"))
                 .roles("USER");
-    }
+    }*/
 }

@@ -8,9 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 public class SecureUser implements UserDetails {
@@ -23,8 +21,8 @@ public class SecureUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (roles != null && !roles.isEmpty()) {
             return roles.stream()
-                    .map(r -> new SimpleGrantedAuthority("ROLE_" + r))
-                    .collect(Collectors.toList());
+                    .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName()))
+                    .toList();
         } else {
             return Collections.emptyList();
         }

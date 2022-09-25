@@ -18,7 +18,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="g-t" />
+          <factory-entry name="g-t" value="c8e0a287-cb2c-41cd-bd94-e0ba12395841" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
