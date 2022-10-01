@@ -1,22 +1,9 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.entity.Game;
-import com.infoshareacademy.utils.GameType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.time.*;
-import java.util.List;
-
+@Repository
 public interface GameRepository extends JpaRepository<Game, Integer> {
-
-    default List<Game> findByDateOfGame(LocalDate localDate) {
-        return findGamesByDateOfGameBetween(localDate.atStartOfDay(), localDate.plusDays(1).atStartOfDay());
-    }
-
-    List<Game> findGamesByName(String name);
-    List<Game> findGamesByType(GameType gameType);
-    List<Game> findGamesByGameLocation_Town(String town);
-    List<Game> findGamesByDateOfGameBetween(LocalDateTime from, LocalDateTime to);
-
-
 }

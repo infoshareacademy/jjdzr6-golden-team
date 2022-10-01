@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: password
-    url: jdbc:mysql://localhost:3307/example
+    url: jdbc:mysql://localhost:3306/example
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
@@ -11,3 +11,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        type: error

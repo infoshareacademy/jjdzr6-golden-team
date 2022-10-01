@@ -2,13 +2,16 @@ package com.infoshareacademy.entity;
 
 import com.google.gson.GsonBuilder;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.List;
 
 
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -26,14 +29,12 @@ public class Location {
     @Column
     private String town;
 
+    @OneToMany(mappedBy = "gameLocation")
+    private List<Game> games;
+
     public Location(double longitude, double latitude, String town) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.town = town;
-    }
-
-    @Override
-    public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

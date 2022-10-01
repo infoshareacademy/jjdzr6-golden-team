@@ -2,9 +2,11 @@ package com.infoshareacademy.mappers;
 
 import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.entity.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @Component
 public class PlayerMapper {
@@ -14,7 +16,7 @@ public class PlayerMapper {
                 .id(player.getId())
                 .username(player.getUsername())
                 .mail(player.getMail())
-                .roles(new HashSet<>(player.getRoles()))
+                .rolesNames(player.getRoles().stream().map(Role::getName).collect(Collectors.toSet()))
                 .build();
     }
 

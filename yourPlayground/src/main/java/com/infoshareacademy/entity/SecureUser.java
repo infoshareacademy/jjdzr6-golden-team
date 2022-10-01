@@ -1,6 +1,5 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.entity;
 
-import com.infoshareacademy.entity.Role;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,13 +14,13 @@ public class SecureUser implements UserDetails {
     private Integer id;
     private String username;
     private String password;
-    private Set<Role> roles;
+    private Set<String> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (roles != null && !roles.isEmpty()) {
             return roles.stream()
-                    .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getName()))
+                    .map(r -> new SimpleGrantedAuthority("ROLE_" + r))
                     .toList();
         } else {
             return Collections.emptyList();

@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.entity.Role;
+import com.infoshareacademy.entity.SecureUser;
 import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.PlayerRepository;
 import com.infoshareacademy.repository.RoleRepository;
@@ -14,12 +15,15 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
+@Transactional
 public class PlayerService implements UserDetailsService {
 
     private final PlayerRepository playerRepository;
@@ -35,7 +39,7 @@ public class PlayerService implements UserDetailsService {
     }
 
     public List<PlayerDto> getUsers() {
-        return playerRepository.findAll().stream().map(this::map).map(this::toDto).toList();
+        return playerRepository.findAll().stream().map(playerMapper::toDto).toList();
     }
 
     public PlayerDto findByUsername(String username) {
@@ -49,7 +53,7 @@ public class PlayerService implements UserDetailsService {
         secure.setId(player.getId());
         secure.setUsername(player.getUsername());
         secure.setPassword(player.getPassword());
-        secure.setRoles(player.getRoles());
+        secure.setRoles(player.getRoles().stream().map(r -> r.getName()).collect(Collectors.toSet()));
         return secure;
     }
 
@@ -57,7 +61,7 @@ public class PlayerService implements UserDetailsService {
         PlayerDto dto = new PlayerDto();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
-        dto.setRoles(user.getRoles());
+        dto.setRolesNames(user.getRoles());
         return dto;
     }
 
@@ -73,9 +77,5 @@ public class PlayerService implements UserDetailsService {
         entityToSave.setPassword(encoder.encode(entityToSave.getPassword()));
 
         playerRepository.save(entityToSave);
-    }
-
-    public Optional<PlayerDto> findPlayerByUsername (String username) {
-        return playerRepository.findByUsername(username).map(playerMapper::toDto);
     }
 }

@@ -1,13 +1,12 @@
 package com.infoshareacademy.controller;
 
+import com.infoshareacademy.dto.FindGameDto;
 import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Player;
-import com.infoshareacademy.mappers.GameMapper;
 
 import com.infoshareacademy.mappers.PlayerMapper;
-import com.infoshareacademy.repository.PlayerRepository;
-import com.infoshareacademy.service.GameServiceTH;
+import com.infoshareacademy.service.GameService;
 import com.infoshareacademy.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import java.io.IOException;
 public class GameController {
 
 
-    private final GameServiceTH gameService;
+    private final GameService gameService;
 
     private final PlayerService playerService;
 
@@ -45,6 +44,17 @@ public class GameController {
     public String getGames(Model model) {
         model.addAttribute("games", gameService.findAll());
         return "games";
+    }
+
+    @PostMapping("find")
+    public String getFoundGames(@Valid @ModelAttribute("foundGames") FindGameDto findGameDto,
+                                BindingResult bindingResult) {
+        gameService.findByCriteriaBuilder(findGameDto);
+
+        if (bindingResult.hasErrors()) {
+            return "games";
+        }
+        return "foundGames";
     }
 
     @GetMapping("new")

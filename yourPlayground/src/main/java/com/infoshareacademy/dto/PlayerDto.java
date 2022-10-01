@@ -31,6 +31,6 @@ public class PlayerDto {
     @NotNull
     @NotEmpty
     private String mail;
-    private Set<Role> roles;
+    private Set<String> rolesNames;
 
 }

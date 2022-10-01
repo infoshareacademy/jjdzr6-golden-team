@@ -1,18 +1,19 @@
 package com.infoshareacademy.entity;
 
 import com.google.gson.GsonBuilder;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -32,15 +33,11 @@ public class Player {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "players_roles",
-            joinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "player_role_jointable",
+            joinColumns = @JoinColumn(name = "player_id"),
+            inverseJoinColumns = @JoinColumn( name = "role_id")
+    )
     private Set<Role> roles;
-
-
-    @Override
-    public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
-    }
 }
