@@ -1,19 +1,19 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.dto.CreateGameDto;
 import com.infoshareacademy.dto.FindGameDto;
 import com.infoshareacademy.dto.GameDto;
+import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.mappers.GameMapper;
-import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.GameDao;
 import com.infoshareacademy.repository.GameRepository;
 import com.infoshareacademy.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,25 +22,23 @@ import java.util.stream.Collectors;
 public class GameService {
 
     private final GameRepository gameRepository;
-
     private final GameDao gameDao;
-
     private final LocationRepository locationRepository;
-
     private final GameMapper gameMapper;
-
     private final PlayerMapper playerMapper;
 
 
-    public void create(GameDto dto, Player owner) {
+    public void create(CreateGameDto createGameDto, Player owner) {
 
-        if (dto.getGameLocation().getId() == null) {
-            locationRepository.save(dto.getGameLocation());
+        if (locationRepository.findByTown(createGameDto.getTown()).isEmpty()) {
+            Location location = new Location(0.00, 0.00, createGameDto.getTown());
+            locationRepository.save(location);
         }
 
-        dto.setPlayers(new HashSet<>(List.of(playerMapper.toDto(owner))));
+        GameDto dto = gameMapper.fromCreateGameDtoToGameDto(createGameDto);
+        dto.setGameOwner(owner);
+        dto.setPlayers(new HashSet(List.of(playerMapper.toDto(owner))));
         Game game = gameMapper.toEntity(dto);
-        game.setGameOwner(owner);
 
         gameRepository.save(game);
     }
@@ -58,7 +56,7 @@ public class GameService {
 
     }
 
-    public List<GameDto> findByCriteriaBuilder (FindGameDto findGameDto) {
+    public List<GameDto> findByCriteriaBuilder(FindGameDto findGameDto) {
         Collection<Game> foundGames = gameDao.findGamesByCriteriaBuilder(findGameDto);
         return foundGames.stream()
                 .map(gameMapper::toDto)

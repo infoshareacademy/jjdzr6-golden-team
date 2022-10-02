@@ -33,4 +33,8 @@ public class PlayerDto {
     private String mail;
     private Set<String> rolesNames;
 
+    public PlayerDto(Integer id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 }

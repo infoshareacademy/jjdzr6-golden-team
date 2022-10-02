@@ -1,6 +1,5 @@
 package com.infoshareacademy.dto;
 
-import com.infoshareacademy.utils.GameType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

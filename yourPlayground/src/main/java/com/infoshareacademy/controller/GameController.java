@@ -1,8 +1,10 @@
 package com.infoshareacademy.controller;
 
+import com.infoshareacademy.dto.CreateGameDto;
 import com.infoshareacademy.dto.FindGameDto;
 import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Player;
 
 import com.infoshareacademy.mappers.PlayerMapper;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("games")
@@ -42,15 +45,16 @@ public class GameController {
 
     @GetMapping
     public String getGames(Model model) {
+        model.addAttribute("findGame", new FindGameDto());
         model.addAttribute("games", gameService.findAll());
         return "games";
     }
 
-    @PostMapping("find")
-    public String getFoundGames(@Valid @ModelAttribute("foundGames") FindGameDto findGameDto,
-                                BindingResult bindingResult) {
-        gameService.findByCriteriaBuilder(findGameDto);
-
+   @PostMapping("find")
+    public String findGames(@Valid @ModelAttribute("findGame") FindGameDto findGameDto,
+                                BindingResult bindingResult, Model model) {
+        List<GameDto> foundGames = gameService.findByCriteriaBuilder(findGameDto);
+        model.addAttribute("foundGames", foundGames);
         if (bindingResult.hasErrors()) {
             return "games";
         }
@@ -58,14 +62,14 @@ public class GameController {
     }
 
     @GetMapping("new")
-    public String createGame(Model model) throws IOException {
+    public String createGame(Model model) {
         model.addAttribute("game", new GameDto());
         return "game-form";
     }
 
     @Secured("ROLE_USER")
     @PostMapping("new")
-    public String postGame(@Valid @ModelAttribute("game") GameDto gameDto,
+    public String postGame(@Valid @ModelAttribute("game") CreateGameDto createGameDto,
                            BindingResult bindingResult) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -76,7 +80,7 @@ public class GameController {
             return "game-form";
         }
 
-        gameService.create(gameDto, gameOwner);
+        gameService.create(createGameDto, gameOwner);
         return "game-form-success";
     }
 }

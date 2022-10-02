@@ -13,7 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -27,4 +26,8 @@ public class Role {
     @ManyToMany (mappedBy = "roles")
     private Set<Player> players;
 
+    public Role(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

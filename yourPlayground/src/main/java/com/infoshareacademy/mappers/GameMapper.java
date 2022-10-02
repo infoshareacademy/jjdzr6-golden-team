@@ -1,22 +1,42 @@
 package com.infoshareacademy.mappers;
 
+import com.infoshareacademy.dto.CreateGameDto;
 import com.infoshareacademy.dto.GameDto;
 import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.repository.LocationRepository;
+import com.infoshareacademy.utils.GameType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import java.util.stream.Collectors;
-import java.util.List;
 
 
 @Component
+@RequiredArgsConstructor
 public class GameMapper {
+    private final LocationRepository locationRepository;
+    private final PlayerMapper playerMapper;
+
+    public GameDto fromCreateGameDtoToGameDto(CreateGameDto createGameDto) {
+
+        Location location;
+
+        if(locationRepository.findByTown(createGameDto.getTown()).isPresent()) {
+            location = locationRepository.findByTown(createGameDto.getTown()).get();
+        } else {
+            location = new Location(0.00, 0.00, createGameDto.getTown());
+        }
+
+        return GameDto.builder()
+                .name(createGameDto.getName())
+                .type(GameType.valueOf(createGameDto.getType()))
+                .maxNumberOfPlayers(createGameDto.getMaxNumberOfPlayers())
+                .gameLocation(location)
+                .build();
+    }
 
     public GameDto toDto(Game game) {
         return GameDto.builder()
