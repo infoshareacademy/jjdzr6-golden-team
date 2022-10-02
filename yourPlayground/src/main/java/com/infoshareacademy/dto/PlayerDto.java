@@ -31,6 +31,10 @@ public class PlayerDto {
     @NotNull
     @NotEmpty
     private String mail;
-    private Set<Role> roles;
+    private Set<String> rolesNames;
 
+    public PlayerDto(Integer id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 }

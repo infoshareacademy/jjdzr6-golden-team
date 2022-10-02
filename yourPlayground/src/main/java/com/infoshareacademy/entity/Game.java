@@ -1,7 +1,5 @@
 package com.infoshareacademy.entity;
 
-import com.google.gson.GsonBuilder;
-import com.infoshareacademy.service.GameServiceImpl;
 import com.infoshareacademy.utils.GameType;
 import lombok.*;
 
@@ -11,15 +9,15 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 
 @javax.persistence.Entity
 @Table(name = "games")
 
-public class Game extends GameServiceImpl {
+public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,18 +31,22 @@ public class Game extends GameServiceImpl {
     @Column
     private int maxNumberOfPlayers;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "players_id", referencedColumnName = "id")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "game_player_jointable",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn( name = "player_id")
+    )
     private Set<Player> players;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location gameLocation;
 
     @Column
     private LocalDateTime dateOfGame;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Player gameOwner;
 
@@ -56,10 +58,5 @@ public class Game extends GameServiceImpl {
         this.name = name;
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.type = gameType;
-    }
-
-    @Override
-    public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

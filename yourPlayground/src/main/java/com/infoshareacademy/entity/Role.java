@@ -1,15 +1,15 @@
 package com.infoshareacademy.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.util.Set;
 
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -23,4 +23,11 @@ public class Role {
     @Column
     private String name;
 
+    @ManyToMany (mappedBy = "roles")
+    private Set<Player> players;
+
+    public Role(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
