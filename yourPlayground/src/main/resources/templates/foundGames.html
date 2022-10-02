@@ -45,7 +45,7 @@
             <th th:text="'Name'"></th>
             <th th:text="'Link'"></th>
         </tr>
-        <tr th:each="game,iterStat : ${games}" th:class="${iterStat.odd}? 'grey-row'">
+        <tr th:each="game,iterStat : ${foundGames}" th:class="${iterStat.odd}? 'grey-row'">
             <td th:text="${game.id}"></td>
             <td th:text="${game.name}"></td>
             <td>
