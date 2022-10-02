@@ -42,15 +42,15 @@ public class GameDao {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (findGameDto.getName() != null) {
+        if (findGameDto.getName() != "") {
             predicates.add(isNameEqual(findGameDto.getName(), root, cb));
         }
 
-        if (findGameDto.getTown() != null) {
+        if (findGameDto.getTown() != "") {
             predicates.add(isTownEqual(findGameDto.getTown(), root, cb));
         }
 
-        if (findGameDto.getType() != null) {
+        if (findGameDto.getType() != "") {
             predicates.add(isTypeEqual(findGameDto.getType(), root, cb));
         }
 
@@ -58,7 +58,7 @@ public class GameDao {
             predicates.add(isDateOfGameEqual(findGameDto.getDateOfGame(), root, cb));
         }
 
-        return cb.and(predicates.get(0), predicates.get(1), predicates.get(2), predicates.get(3));
+        return cb.and(predicates.toArray(Predicate[]::new));
 
     }
 
@@ -67,14 +67,14 @@ public class GameDao {
     }
 
     Predicate isTownEqual(String town, Root root, CriteriaBuilder cb) {
-        return cb.equal(root.get("gameLocation").get("town"), town);
+        return cb.equal(root.get("gameLocation").<String> get("town"), town);
     }
 
     Predicate isTypeEqual(String gameType, Root root, CriteriaBuilder cb) {
-        return cb.equal(root.get("type").get("value"), gameType);
+        return cb.equal(root.get("type").<String> get("value"), gameType);
     }
 
     Predicate isDateOfGameEqual(LocalDate date, Root root, CriteriaBuilder cb) {
-        return cb.equal(root.<LocalDate> get("dateOfGame"), date);
+        return cb.between(root.get("dateOfGame"), date.atStartOfDay(), date.plusDays(1).atStartOfDay());
     }
 }

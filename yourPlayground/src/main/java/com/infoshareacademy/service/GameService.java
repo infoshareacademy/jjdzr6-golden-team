@@ -3,6 +3,7 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.dto.CreateGameDto;
 import com.infoshareacademy.dto.FindGameDto;
 import com.infoshareacademy.dto.GameDto;
+import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
@@ -28,7 +29,7 @@ public class GameService {
     private final PlayerMapper playerMapper;
 
 
-    public void create(CreateGameDto createGameDto, Player owner) {
+    public void create(CreateGameDto createGameDto) {
 
         if (locationRepository.findByTown(createGameDto.getTown()).isEmpty()) {
             Location location = new Location(0.00, 0.00, createGameDto.getTown());
@@ -36,8 +37,6 @@ public class GameService {
         }
 
         GameDto dto = gameMapper.fromCreateGameDtoToGameDto(createGameDto);
-        dto.setGameOwner(owner);
-        dto.setPlayers(new HashSet(List.of(playerMapper.toDto(owner))));
         Game game = gameMapper.toEntity(dto);
 
         gameRepository.save(game);

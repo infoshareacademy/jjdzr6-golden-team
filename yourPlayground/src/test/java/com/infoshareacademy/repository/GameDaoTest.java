@@ -65,9 +65,9 @@ class GameDaoTest {
                 "Board game", 22,
                 "Warszawa", LocalDateTime.of(2022, 10, 2, 12, 00), gameOwner);
 
-        gameService.create(game1, playerMapper.toEntity(gameOwner));
-        gameService.create(game2, playerMapper.toEntity(gameOwner));
-        gameService.create(game3, playerMapper.toEntity(gameOwner));
+        gameService.create(game1, gameOwner);
+        gameService.create(game2, gameOwner);
+        gameService.create(game3, gameOwner);
 
 
         //when

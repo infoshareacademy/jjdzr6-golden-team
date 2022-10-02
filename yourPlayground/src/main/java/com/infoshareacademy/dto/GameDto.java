@@ -29,6 +29,6 @@ public class GameDto {
     @FutureOrPresent
     private LocalDateTime dateOfGame;
 
-    private Player gameOwner;
+    private PlayerDto gameOwner;
 
 }

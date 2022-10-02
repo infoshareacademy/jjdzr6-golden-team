@@ -35,8 +35,6 @@ public class GameController {
 
     private final PlayerService playerService;
 
-    private final PlayerMapper playerMapper;
-
     @GetMapping("{id}")
     public String getGame(@PathVariable Integer id, Model model) throws IOException {
         model.addAttribute("game", gameService.findById(id));
@@ -63,7 +61,7 @@ public class GameController {
 
     @GetMapping("new")
     public String createGame(Model model) {
-        model.addAttribute("game", new GameDto());
+        model.addAttribute("game", new CreateGameDto());
         return "game-form";
     }
 
@@ -74,13 +72,13 @@ public class GameController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PlayerDto gameOwnerDto = playerService.findByUsername(authentication.getName());
-        Player gameOwner = playerMapper.toEntity(gameOwnerDto);
+        createGameDto.setGameOwner(gameOwnerDto);
 
         if(bindingResult.hasErrors()) {
             return "game-form";
         }
 
-        gameService.create(createGameDto, gameOwner);
-        return "game-form-success";
+        gameService.create(createGameDto);
+        return "redirect:/games";
     }
 }

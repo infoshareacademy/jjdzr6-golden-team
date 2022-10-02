@@ -32,21 +32,13 @@
             <br>
             <label th:for="town_input_id" th:text="'Town'"></label>
             <br>
-            <input type="text" id="town_input_id" th:field="*{gameLocation.town}">
+            <input type="text" id="town_input_id" th:field="*{town}">
             <br>
-            <label th:for="longitude_input_id" th:text="'longitude'"></label>
-            <br>
-            <input type="text" id="longitude_input_id" th:field="*{gameLocation.longitude}">
-            <br>
-            <label th:for="latitude_input_id" th:text="'latitude'"></label>
-            <br>
-            <input type="text" id="latitude_input_id" th:field="*{gameLocation.latitude}">
-            <br>
-            <label th:for="maxNumberOfPlayers_input_id" th:text="'maxNumberOfPlayers'"></label>
+            <label th:for="maxNumberOfPlayers_input_id" th:text="'Max number of players'"></label>
             <br>
             <input type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
             <br>
-            <label th:for="date_input_id" th:text="'date'"></label>
+            <label th:for="date_input_id" th:text="'Date'"></label>
             <br>
             <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
                 <ul>
