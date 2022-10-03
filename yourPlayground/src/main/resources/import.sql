@@ -10,3 +10,17 @@ INSERT INTO player_role_jointable (player_id, role_id) VALUES(1, 1);
 INSERT INTO player_role_jointable (player_id, role_id) VALUES(1, 2);
 INSERT INTO player_role_jointable (player_id, role_id) VALUES(2, 2);
 INSERT INTO player_role_jointable (player_id, role_id) VALUES(4, 2);
+
+INSERT INTO locations values (1,0,0,'Nowa Iwiczna');
+INSERT INTO locations values (2,0,0,'Warszawa');
+INSERT INTO locations values (3,0,0,'Łódź');
+INSERT INTO locations values (4,0,0,'Kraków');
+
+INSERT INTO games values (1, '2022-10-04 10:00:00',2,'Szachy','BOARD',1,1);
+INSERT INTO games values (2, '2022-10-05 12:00:00',10,'Koszykówka','SPORT',2,1);
+INSERT INTO games values (3, '2022-10-09 10:00:00',22,'Piłka nożna','SPORT',3,2);
+
+INSERT INTO game_player_jointable values (1, 1);
+INSERT INTO game_player_jointable values (1, 2);
+INSERT INTO game_player_jointable values (2, 1);
+INSERT INTO game_player_jointable values (3, 2);

@@ -30,5 +30,4 @@ public class GameDto {
     private LocalDateTime dateOfGame;
 
     private PlayerDto gameOwner;
-
 }

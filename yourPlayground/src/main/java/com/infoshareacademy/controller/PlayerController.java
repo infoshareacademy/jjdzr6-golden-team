@@ -2,6 +2,7 @@ package com.infoshareacademy.controller;
 
 import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.repository.PlayerRepository;
+import com.infoshareacademy.service.GameService;
 import com.infoshareacademy.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class PlayerController {
     private final PlayerService playerService;
     private final PlayerRepository playerRepository;
 
+    private final GameService gameService;
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/users")
     public String users(Model model) {
@@ -33,6 +36,7 @@ public class PlayerController {
         Player player = playerRepository.findByUsername(authentication.getName()).orElseThrow();
 
         model.addAttribute("player", playerService.findByUsername(player.getUsername()));
+        model.addAttribute("games", gameService.findAllByOwner(player));
         return "player";
     }
 }

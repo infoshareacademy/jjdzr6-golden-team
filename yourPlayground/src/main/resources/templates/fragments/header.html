@@ -1,32 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar justify-content-center"
-     style="background-color: darkslategray; margin-bottom: 20px">
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/}">Home</a>
+<div class="fixed-top">
+    <div class="row align-items-center bc-darkseagreen">
+        <div class="col img-scale text-start ms-2 mt-2">
+            <img th:src="@{/assets/playground-long.png}" alt="" height="80">
+        </div>
+        <div class="col text-end me-4">
+            <a class="btn btn-secondary" th:href="@{/sign-in}" sec:authorize="!isAuthenticated()">
+                <span>Log in</span>
+                <i class="fa fa-sign-in"></i>
+            </a>
+
+            <a th:href="@{/player}" class="btn btn-secondary bc-darkseagreen bor-darkseagreen" sec:authorize="isAuthenticated()">
+                <i class="fa fa-user"></i>
+            </a>
+            <a class="btn btn-secondary bc-darkseagreen bor-darkseagreen" th:href="@{/sign-out}" sec:authorize="isAuthenticated()">
+                <i class="fa fa-power-off"></i>
+            </a>
+        </div>
     </div>
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/dashboard}" sec:authorize="isAuthenticated()">Dashboard</a>
+
+    <div class="row">
+        <nav th:fragment="header"
+             class="navbar navbar-expand-lg navbar-dark scrolling-navbar justify-content-start bc-darkseagreen m-auto">
+            <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2" >
+                <a class="navbar-brand me-0" th:href="@{/}">Home</a>
+            </div>
+            <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
+                <a class="navbar-brand me-0" th:href="@{/dashboard}" sec:authorize="isAuthenticated()">Dashboard</a>
+            </div>
+            <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
+                <a class="navbar-brand me-0" th:href="@{/games}" sec:authorize="isAuthenticated()">Games</a>
+            </div>
+            <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
+                <a class="navbar-brand me-0" th:href="@{/map}" sec:authorize="isAuthenticated()">Map</a>
+            </div>
+            <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
+                <a class="navbar-brand me-0" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')">Users</a>
+            </div>
+        </nav>
     </div>
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/games}" sec:authorize="isAuthenticated()">Games</a>
-    </div>
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/map}" sec:authorize="isAuthenticated()">Map</a>
-    </div>
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/player}" sec:authorize="isAuthenticated()">My Profile</a>
-    </div>
-    <div class="nav-item">
-        <a class="navbar-brand" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')">Users</a>
-    </div>
-    <div class="nav-item">
-        <a class="navbar-brand btn btn-outline-primary" th:href="@{/sign-in}" sec:authorize="!isAuthenticated()">Sign In</a>
-    </div>
-    <div class="nav-item">
-        <a class="navbar-brand btn btn-outline-primary" th:href="@{/sign-out}" sec:authorize="isAuthenticated()">Sign out</a>
-    </div>
-</nav>
+</div>
 </body>
 </html>

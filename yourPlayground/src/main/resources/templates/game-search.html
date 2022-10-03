@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container-md">
-    <div>
-        <form th:object="${findGame}" th:action="@{/games/find}" method="post">
-            <div class="row">
-                <div class="col-sm">
-                    <label th:for="name_input_id" th:text="'Name'"></label>
-                    <input style="width: 100%; height: 30px; padding: 2px; border-width: 1px" type="text" id="name_input_id" th:field="*{name}">
-                </div>
-
-                <div class="col-sm">
-                    <label class="align-top" th:for="type_input_id" th:text="'Type'"></label>
-                    <select style="width: 100%; height: 30px; padding: 2px; border-width: 1px" id="type_input_id" th:field="*{type}">
-                        <option value="">Please choose game type</option>
-                        <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
-                                th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
-                    </select>
-                </div>
-
-                <div class="col-sm">
-                    <label th:for="town_input_id" th:text="'Town'"></label>
-                    <input style="width: 100%; height: 30px; padding: 2px; border-width: 1px" type="text" id="town_input_id" th:field="*{town}">
-                </div>
-
-                <div class="col-sm">
-                    <label th:for="date_input_id" th:text="'Date'"></label>
-                    <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
-                        <ul>
-                            <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
-                        </ul>
-                    </div>
-                    <input style="width: 100%; height: 30px; padding: 2px; border-width: 1px" type="date" id="date_input_id" th:field="*{dateOfGame}">
-                </div>
-
-                <div class="col-sm">
-                    <button type="submit" class="btn btn-primary" th:text="'Search'"></button>
-                </div>
-
+<div class="row">
+    <h1 class="">Game search</h1>
+</div>
+<div class="row">
+    <form id="form" th:object="${findGame}" th:action="@{/games/find}" method="post">
+        <div class="row mb-3">
+            <div class="col-sm">
+                <label th:for="name_input_id" th:text="'Name:'"></label>
+                <input class="input_search_field bc-whitesmoke" type="text" id="name_input_id" th:field="*{name}">
             </div>
-        </form>
-    </div>
+
+            <div class="col-sm">
+                <label class="align-top" th:for="type_input_id" th:text="'Type:'"></label>
+                <select class="input_search_field bc-whitesmoke" id="type_input_id" th:field="*{type}">
+                    <option value="">Please choose game type</option>
+                    <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
+                            th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
+                </select>
+            </div>
+
+            <div class="col-sm">
+                <label th:for="town_input_id" th:text="'Town:'"></label>
+                <input class="input_search_field bc-whitesmoke" type="text" id="town_input_id" th:field="*{town}">
+            </div>
+
+            <div class="col-sm">
+                <label th:for="date_input_id" th:text="'Date of game:'"></label>
+                <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+                <input class="input_search_field bc-whitesmoke" type="date" id="date_input_id"
+                       th:field="*{dateOfGame}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm text-start">
+                <a th:href="@{/games/new}">
+                    <button type="button" class="btn btn-warning text-start">
+                        <span>Create game</span>
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="col-sm text-end">
+                <button id="clear-button" type="button" class="btn btn-secondary">
+                    <span>Clear</span>
+                    <i class="fa fa-remove" aria-hidden="true"></i>
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <span>Search</span>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

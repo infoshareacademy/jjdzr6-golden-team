@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/bootstrap/**", "/assets/bootstrap-solid.svg",
+                .antMatchers("/css/**", "/assets/**",
                         HOME_PAGE,
                         SIGN_IN_PAGE,
                         SIGN_IN_API,

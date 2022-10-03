@@ -1,6 +1,5 @@
 .form-signin {
-  width: 100%;
-  max-width: 330px;
+  width: 90%;
   padding: 15px;
   margin: 0 auto;
 }
@@ -19,11 +18,16 @@
 }
 .form-signin input[type="username"] {
   margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
 }
 .form-signin input[type="password"] {
   margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+}
+
+.w-20 {
+  width: 20% !important;
+}
+
+.bc-whitesmoke {
+  background-color: whitesmoke;
+  font-family: "Watch Applemint";
 }

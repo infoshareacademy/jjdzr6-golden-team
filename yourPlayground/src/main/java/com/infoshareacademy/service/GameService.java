@@ -55,6 +55,14 @@ public class GameService {
 
     }
 
+    public List<GameDto> findAllByOwner(Player player) {
+        Collection<Game> games = gameRepository.findAllByGameOwner(player);
+
+        return games.stream()
+                .map(gameMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     public List<GameDto> findByCriteriaBuilder(FindGameDto findGameDto) {
         Collection<Game> foundGames = gameDao.findGamesByCriteriaBuilder(findGameDto);
         return foundGames.stream()

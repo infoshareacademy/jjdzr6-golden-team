@@ -26,6 +26,7 @@ public class Game {
     private String name;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private GameType type;
 
     @Column
