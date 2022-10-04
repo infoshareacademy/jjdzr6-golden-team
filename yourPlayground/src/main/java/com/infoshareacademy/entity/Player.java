@@ -2,6 +2,7 @@ package com.infoshareacademy.entity;
 
 import com.google.gson.GsonBuilder;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "players")
@@ -33,7 +35,7 @@ public class Player {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "player_role_jointable",
             joinColumns = @JoinColumn(name = "player_id"),

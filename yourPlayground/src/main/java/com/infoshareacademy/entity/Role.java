@@ -1,6 +1,7 @@
 package com.infoshareacademy.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "roles")
@@ -22,12 +24,4 @@ public class Role {
 
     @Column
     private String name;
-
-    @ManyToMany (mappedBy = "roles")
-    private Set<Player> players;
-
-    public Role(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

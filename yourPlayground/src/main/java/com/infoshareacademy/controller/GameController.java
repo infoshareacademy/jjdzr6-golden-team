@@ -1,9 +1,6 @@
 package com.infoshareacademy.controller;
 
-import com.infoshareacademy.dto.CreateGameDto;
-import com.infoshareacademy.dto.FindGameDto;
-import com.infoshareacademy.dto.GameDto;
-import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.dto.*;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Player;
 
@@ -45,6 +42,11 @@ public class GameController {
     public String getGames(Model model) {
         model.addAttribute("findGame", new FindGameDto());
         model.addAttribute("games", gameService.findAll());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("player", playerService.findByUsername(authentication.getName()));
+
         return "games";
     }
 
@@ -53,6 +55,10 @@ public class GameController {
                                 BindingResult bindingResult, Model model) {
         List<GameDto> foundGames = gameService.findByCriteriaBuilder(findGameDto);
         model.addAttribute("foundGames", foundGames);
+
+       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+       model.addAttribute("player", playerService.findByUsername(authentication.getName()));
+
         if (bindingResult.hasErrors()) {
             return "games";
         }
@@ -81,4 +87,23 @@ public class GameController {
         gameService.create(createGameDto);
         return "redirect:/games";
     }
+
+    @Secured("ROLE_USER")
+    @GetMapping("join/{id}")
+    public String joinGame(@PathVariable Integer id, @Valid @ModelAttribute("game") JoinGameDto joinGameDto) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PlayerDto player = playerService.findByUsername(authentication.getName());
+
+        gameService.joinGame(joinGameDto, player);
+        return "redirect:/games";
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("delete/{id}")
+    public String deleteGame(@PathVariable Integer id) {
+        gameService.deleteGame(id);
+        return "redirect:/games";
+    }
+
 }

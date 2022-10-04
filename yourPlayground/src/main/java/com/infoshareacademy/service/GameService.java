@@ -1,9 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.dto.CreateGameDto;
-import com.infoshareacademy.dto.FindGameDto;
-import com.infoshareacademy.dto.GameDto;
-import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.dto.*;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
@@ -12,6 +9,7 @@ import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.GameDao;
 import com.infoshareacademy.repository.GameRepository;
 import com.infoshareacademy.repository.LocationRepository;
+import com.infoshareacademy.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +23,8 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameDao gameDao;
     private final LocationRepository locationRepository;
+
+    private final PlayerRepository playerRepository;
     private final GameMapper gameMapper;
     private final PlayerMapper playerMapper;
 
@@ -40,6 +40,22 @@ public class GameService {
         Game game = gameMapper.toEntity(dto);
 
         gameRepository.save(game);
+    }
+
+    public void joinGame(JoinGameDto joinGameDto, PlayerDto playerDto) {
+        Game game = gameRepository.findById(joinGameDto.getId()).get();
+
+        if(game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
+            Set<Player> players = game.getPlayers();
+            players.add(playerRepository.findByUsername(playerDto.getUsername()).get());
+            game.setPlayers(players);
+
+            gameRepository.save(game);
+        }
+    }
+
+    public void deleteGame(Integer id) {
+        gameRepository.deleteById(id);
     }
 
     public GameDto findById(Integer id) {
@@ -69,4 +85,6 @@ public class GameService {
                 .map(gameMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+
 }

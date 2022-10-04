@@ -34,10 +34,35 @@ body {
 .img-scale {
     object-fit: scale-down;
 }
+.videos {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+}
 
 .whitesmoke {
     color: whitesmoke;
 }
 .bor-darkseagreen {
     border-color: darkseagreen;
+}
+
+.welcome-heading {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+}
+
+.welcome-login {
+    top: 150px;
+    right: 50px;
+    position: absolute;
+    border-color: whitesmoke;
+    background-color: rgb(245, 245, 245, .8);
 }

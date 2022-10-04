@@ -2,6 +2,7 @@ package com.infoshareacademy.entity;
 
 import com.infoshareacademy.utils.GameType;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Setter
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode
 
 @javax.persistence.Entity
 @Table(name = "games")
@@ -32,7 +34,7 @@ public class Game {
     @Column
     private int maxNumberOfPlayers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "game_player_jointable",
             joinColumns = @JoinColumn(name = "game_id"),
@@ -40,14 +42,14 @@ public class Game {
     )
     private Set<Player> players;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location gameLocation;
 
     @Column
     private LocalDateTime dateOfGame;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Player gameOwner;
 
