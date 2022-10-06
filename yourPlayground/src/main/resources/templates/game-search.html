@@ -47,7 +47,7 @@
                 </a>
             </div>
             <div class="col-sm text-end">
-                <button id="clear-button" type="reset" value="reset" class="btn btn-secondary">
+                <button id="clear-button" onclick="resetForm()" class="btn btn-secondary">
                     <span>Clear</span>
                     <i class="fa fa-remove" aria-hidden="true"></i>
                 </button>
@@ -60,5 +60,19 @@
 
     </form>
 </div>
+
+<script>
+    let nameInput = document.getElementById("name_input_id");
+    let typeInput = document.getElementById("type_input_id");
+    let townInput = document.getElementById("town_input_id");
+    let dateInput = document.getElementById("date_input_id");
+    function resetForm() {
+        nameInput.value = "";
+        typeInput.value = "";
+        townInput.value = "";
+        dateInput.value = "";
+    }
+</script>
+
 </body>
 </html>
