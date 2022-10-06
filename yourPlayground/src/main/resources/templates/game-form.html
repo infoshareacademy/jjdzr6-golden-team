@@ -27,10 +27,6 @@
     <div class="row">
         <form th:object="${game}" th:action="@{/games/new}" method="post">
             <div class="row mb-3">
-                <label th:for="name_input_id" th:text="'Name:'"></label>
-                <input class="input_search_field bc-whitesmoke rounded" type="text" id="name_input_id" th:field="*{name}">
-            </div>
-            <div class="row mb-3">
                 <label th:for="type_input_id" th:text="'Type:'"></label>
                 <select class="input_search_field bc-whitesmoke rounded" id="type_input_id" th:field="*{type}">
                     <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
@@ -38,12 +34,23 @@
                 </select>
             </div>
             <div class="row mb-3">
+                <label th:for="name_input_id" th:text="'Name:'"></label>
+                <select class="input_search_field bc-whitesmoke rounded" id="name_input_id" th:field="*{name}">
+                    <option data-game="SPORT" th:each="nameOpt : ${T(com.infoshareacademy.utils.SportGames).values()}"
+                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                    <option data-game="BOARD" th:each="nameOpt : ${T(com.infoshareacademy.utils.BoardGames).values()}"
+                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
                 <label th:for="town_input_id" th:text="'Town:'"></label>
-                <input class="input_search_field bc-whitesmoke rounded" type="text" id="town_input_id" th:field="*{town}">
+                <input class="input_search_field bc-whitesmoke rounded" type="text" id="town_input_id"
+                       th:field="*{town}">
             </div>
             <div class="row mb-3">
                 <label th:for="maxNumberOfPlayers_input_id" th:text="'Max number of players:'"></label>
-                <input class="input_search_field bc-whitesmoke rounded" type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
+                <input class="input_search_field bc-whitesmoke rounded" type="text" id="maxNumberOfPlayers_input_id"
+                       th:field="*{maxNumberOfPlayers}">
             </div>
             <div class="row mb-3">
                 <label th:for="date_input_id" th:text="'Date:'"></label>
@@ -52,7 +59,8 @@
                         <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
                     </ul>
                 </div>
-                <input class="input_search_field bc-whitesmoke rounded" type="datetime-local" id="date_input_id" th:field="*{dateOfGame}">
+                <input class="input_search_field bc-whitesmoke rounded" type="datetime-local" id="date_input_id"
+                       th:field="*{dateOfGame}">
             </div>
             <div class="row mb-3">
                 <button type="submit" class="btn btn-warning">
@@ -70,5 +78,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+<script>
+    document.getElementById('type_input_id').addEventListener("change", e => {
+        document.getElementById('name_input_id').value = "";
+        const children = document.getElementById('name_input_id').children;
+        Array.from(children).forEach(node => {
+            if (node.getAttribute("data-game") !== e.target.value) {
+                node.style.display = "none";
+            } else {
+                node.style.display = "block";
+            }
+        })
+    })
+</script>
 </body>
 </html>

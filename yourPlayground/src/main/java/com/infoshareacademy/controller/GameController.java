@@ -22,8 +22,6 @@ import java.util.List;
 @RequestMapping("games")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GameController {
-
-
     private final GameService gameService;
 
     private final PlayerService playerService;
