@@ -65,7 +65,7 @@ public class GameService {
         gameRepository.deleteById(id);
     }
 
-    public GameDto findById(Integer id) throws GameNotFoundException {
+    public GameDto findById(Integer id) {
         Optional<Game> game = gameRepository.findById(id);
         if (game.isPresent()) {
             return gameMapper.toDto(game.get());
