@@ -37,7 +37,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="game,iterStat : ${games}">
+        <tr th:each="game : ${games}">
             <td th:text="${game.name}"></td>
             <td th:text="${game.type.value}"></td>
             <td th:text="${game.gameLocation.town}"></td>

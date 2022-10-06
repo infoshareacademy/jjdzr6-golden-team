@@ -1,4 +1,4 @@
-package com.example.web.config;
+package com.infoshareacademy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

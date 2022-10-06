@@ -1,10 +1,8 @@
 package com.infoshareacademy.controller;
 
 import com.infoshareacademy.dto.*;
-import com.infoshareacademy.entity.Game;
-import com.infoshareacademy.entity.Player;
-
-import com.infoshareacademy.mappers.PlayerMapper;
+import com.infoshareacademy.exceptions.GameNotFoundException;
+import com.infoshareacademy.exceptions.PlayerNotFoundException;
 import com.infoshareacademy.service.GameService;
 import com.infoshareacademy.service.PlayerService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -33,7 +29,7 @@ public class GameController {
     private final PlayerService playerService;
 
     @GetMapping("{id}")
-    public String getGame(@PathVariable Integer id, Model model) throws IOException {
+    public String getGame(@PathVariable Integer id, Model model) throws GameNotFoundException {
         model.addAttribute("game", gameService.findById(id));
         return "game";
     }
@@ -90,7 +86,7 @@ public class GameController {
 
     @Secured("ROLE_USER")
     @GetMapping("join/{id}")
-    public String joinGame(@PathVariable Integer id, @Valid @ModelAttribute("game") JoinGameDto joinGameDto) {
+    public String joinGame(@PathVariable Integer id, @Valid @ModelAttribute("game") JoinGameDto joinGameDto) throws GameNotFoundException, PlayerNotFoundException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PlayerDto player = playerService.findByUsername(authentication.getName());
