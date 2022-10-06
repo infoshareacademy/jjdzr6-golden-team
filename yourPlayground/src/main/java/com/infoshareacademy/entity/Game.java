@@ -2,10 +2,8 @@ package com.infoshareacademy.entity;
 
 import com.infoshareacademy.utils.GameType;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -61,5 +59,9 @@ public class Game {
         this.name = name;
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.type = gameType;
+    }
+
+    public int getPlayersSize() {
+        return players.size();
     }
 }

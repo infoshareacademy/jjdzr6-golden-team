@@ -4,6 +4,7 @@ import com.infoshareacademy.dto.*;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.exceptions.GameIsFullException;
 import com.infoshareacademy.exceptions.GameNotFoundException;
 import com.infoshareacademy.exceptions.PlayerNotFoundException;
 import com.infoshareacademy.mappers.GameMapper;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -44,23 +44,21 @@ public class GameService {
         gameRepository.save(game);
     }
 
-    public void joinGame(JoinGameDto joinGameDto, PlayerDto playerDto) throws GameNotFoundException, PlayerNotFoundException {
-        Game game;
-        if (gameRepository.findById(joinGameDto.getId()).isPresent()) {
-            game = gameRepository.findById(joinGameDto.getId()).get();
+    public void joinGame(JoinGameDto joinGameDto, PlayerDto playerDto) {
+        Game game = gameRepository.findById(joinGameDto.getId())
+                .orElseThrow(() -> new GameNotFoundException("Could not find game with ID: " + joinGameDto.getId()));
+        if (game.getPlayersSize() >= game.getMaxNumberOfPlayers()) throw new GameIsFullException();
 
-            if(game.getPlayers().size() < game.getMaxNumberOfPlayers()) {
-                Set<Player> players = game.getPlayers();
-                if(playerRepository.findByUsername(playerDto.getUsername()).isPresent()) {
-                    players.add(playerRepository.findByUsername(playerDto.getUsername()).get());
-                    game.setPlayers(players);
-                } else throw new PlayerNotFoundException(
-                        "Could not find player with Username: " + playerDto.getUsername());
-
-                gameRepository.save(game);
-            }
-        } else throw new GameNotFoundException(
-                "Could not find game with ID: " + joinGameDto.getId());
+        playerRepository.findByUsername(playerDto.getUsername())
+                .ifPresentOrElse(player -> {
+                            game.getPlayers().add(player);
+                            gameRepository.save(game);
+                        },
+                        () -> {
+                            throw new PlayerNotFoundException(
+                                    "Could not find player with Username: " + playerDto.getUsername());
+                        }
+                );
     }
 
     public void deleteGame(Integer id) {
@@ -69,7 +67,7 @@ public class GameService {
 
     public GameDto findById(Integer id) throws GameNotFoundException {
         Optional<Game> game = gameRepository.findById(id);
-        if(game.isPresent()) {
+        if (game.isPresent()) {
             return gameMapper.toDto(game.get());
         } else throw new GameNotFoundException(
                 "Could not find game with ID: " + id);
