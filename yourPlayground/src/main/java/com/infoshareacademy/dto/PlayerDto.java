@@ -31,7 +31,7 @@ public class PlayerDto {
     @NotNull
     @NotEmpty
     private String mail;
-    private Set<String> rolesNames = new HashSet<>();
+    private Set<String> rolesNames;
 
     public PlayerDto(Integer id, String username) {
         this.id = id;

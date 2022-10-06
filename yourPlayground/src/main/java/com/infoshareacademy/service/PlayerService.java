@@ -67,10 +67,12 @@ public class PlayerService implements UserDetailsService {
 
     //TODO make save return true or false if saved or not
     public void savePlayer(PlayerDto playerDto) {
-        Player entityToSave = playerMapper.toEntity(playerDto);
+
         Optional<Role> optionalRole = roleRepository.findByName("USER"); //TODO throw exc
 
-        optionalRole.ifPresent(role -> entityToSave.setRoles(Set.of(role)));
+        optionalRole.ifPresent(role -> playerDto.setRolesNames(Set.of(role.getName())));
+
+        Player entityToSave = playerMapper.toEntity(playerDto);
 
         entityToSave.setPassword(passwordEncoder.encode(entityToSave.getPassword()));
 
