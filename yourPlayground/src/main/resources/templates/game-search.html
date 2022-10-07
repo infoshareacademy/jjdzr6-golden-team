@@ -8,19 +8,23 @@
     <form id="form" th:object="${findGame}" th:action="@{/games/find}" method="post">
         <div class="row mb-3">
             <div class="col-sm">
-                <label th:for="name_input_id" th:text="'Name:'"></label>
-                <input class="input_search_field bc-whitesmoke" type="text" id="name_input_id" th:field="*{name}">
-            </div>
-
-            <div class="col-sm">
                 <label class="align-top" th:for="type_input_id" th:text="'Type:'"></label>
                 <select class="input_search_field bc-whitesmoke" id="type_input_id" th:field="*{type}">
-                    <option value="">Please choose game type</option>
+                    <option value="">Choose type of game</option>
                     <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
                             th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
                 </select>
             </div>
-
+            <div class="col-sm">
+                <label th:for="name_input_id" th:text="'Name:'"></label>
+                <select class="input_search_field bc-whitesmoke rounded" id="name_input_id" th:field="*{name}">
+                    <option value="">Choose a game</option>
+                    <option data-game="SPORT" th:each="nameOpt : ${T(com.infoshareacademy.utils.SportGames).values()}"
+                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                    <option data-game="BOARD" th:each="nameOpt : ${T(com.infoshareacademy.utils.BoardGames).values()}"
+                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                </select>
+            </div>
             <div class="col-sm">
                 <label th:for="town_input_id" th:text="'Town:'"></label>
                 <input class="input_search_field bc-whitesmoke" type="text" id="town_input_id" th:field="*{town}">
@@ -66,12 +70,26 @@
     let typeInput = document.getElementById("type_input_id");
     let townInput = document.getElementById("town_input_id");
     let dateInput = document.getElementById("date_input_id");
+
     function resetForm() {
         nameInput.value = "";
         typeInput.value = "";
         townInput.value = "";
         dateInput.value = "";
     }
+</script>
+<script>
+    document.getElementById('type_input_id').addEventListener("change", e => {
+        document.getElementById('name_input_id').value = "";
+        const children = document.getElementById('name_input_id').children;
+        Array.from(children).forEach(node => {
+            if (node.getAttribute("data-game") !== e.target.value) {
+                node.style.display = "none";
+            } else {
+                node.style.display = "block";
+            }
+        })
+    })
 </script>
 
 </body>
