@@ -4,7 +4,6 @@ import com.infoshareacademy.utils.GameType;
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,7 @@ import java.util.Set;
 @Setter
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode
 
 @javax.persistence.Entity
 @Table(name = "games")
@@ -26,12 +26,13 @@ public class Game {
     private String name;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private GameType type;
 
     @Column
     private int maxNumberOfPlayers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "game_player_jointable",
             joinColumns = @JoinColumn(name = "game_id"),
@@ -39,14 +40,14 @@ public class Game {
     )
     private Set<Player> players;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location gameLocation;
 
     @Column
     private LocalDateTime dateOfGame;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private Player gameOwner;
 
@@ -58,5 +59,9 @@ public class Game {
         this.name = name;
         this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.type = gameType;
+    }
+
+    public int getPlayersSize() {
+        return players.size();
     }
 }

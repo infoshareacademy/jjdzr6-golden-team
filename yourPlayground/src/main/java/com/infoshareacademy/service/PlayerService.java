@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,7 @@ public class PlayerService implements UserDetailsService {
     private final PlayerRepository playerRepository;
     private final RoleRepository roleRepository;
     private final PlayerMapper playerMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -67,14 +67,14 @@ public class PlayerService implements UserDetailsService {
 
     //TODO make save return true or false if saved or not
     public void savePlayer(PlayerDto playerDto) {
-        Player entityToSave = playerMapper.toEntity(playerDto);
+
         Optional<Role> optionalRole = roleRepository.findByName("USER"); //TODO throw exc
 
-        optionalRole.ifPresent(role -> entityToSave.setRoles(Set.of(role)));
+        optionalRole.ifPresent(role -> playerDto.setRolesNames(Set.of(role.getName())));
 
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder(); //TODO Autowire
+        Player entityToSave = playerMapper.toEntity(playerDto);
 
-        entityToSave.setPassword(encoder.encode(entityToSave.getPassword()));
+        entityToSave.setPassword(passwordEncoder.encode(entityToSave.getPassword()));
 
         playerRepository.save(entityToSave);
     }

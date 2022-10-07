@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-@Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
     @Transactional

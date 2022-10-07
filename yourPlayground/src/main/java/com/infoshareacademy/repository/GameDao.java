@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.dto.FindGameDto;
 import com.infoshareacademy.entity.Game;
+import com.infoshareacademy.utils.GameType;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -71,7 +72,7 @@ public class GameDao {
     }
 
     Predicate isTypeEqual(String gameType, Root root, CriteriaBuilder cb) {
-        return cb.equal(root.get("type").<String> get("value"), gameType);
+        return cb.equal(root.get("type"), GameType.valueOf(gameType));
     }
 
     Predicate isDateOfGameEqual(LocalDate date, Root root, CriteriaBuilder cb) {

@@ -8,46 +8,58 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/css/input_search_fields.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/signin.css}" rel="stylesheet"/>
 
     <meta charset="UTF-8">
-    <title th:text="'Game'"></title>
+    <title th:text="'Create game'"></title>
 </head>
-<body>
+<body class="bc-whitesmoke">
 <div th:insert="fragments/header"></div>
 
-<div class="container-md">
-    <h1 th:text="'The Game'"></h1>
-    <div>
+<div class="container-md p-4 m-4 shadow bc-darkseagreen rounded-3 w-20">
+    <div class="row">
+        <h1 th:text="'Create game'"></h1>
+    </div>
+
+    <div class="row">
         <form th:object="${game}" th:action="@{/games/new}" method="post">
-            <label th:for="name_input_id" th:text="'Name'"></label>
-            <br>
-            <input type="text" id="name_input_id" th:field="*{name}">
-            <br>
-            <label th:for="type_input_id" th:text="'Type'"></label>
-            <br>
-            <select id="type_input_id" th:field="*{type}">
-                <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
-                        th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
-            </select>
-            <br>
-            <label th:for="town_input_id" th:text="'Town'"></label>
-            <br>
-            <input type="text" id="town_input_id" th:field="*{town}">
-            <br>
-            <label th:for="maxNumberOfPlayers_input_id" th:text="'Max number of players'"></label>
-            <br>
-            <input type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
-            <br>
-            <label th:for="date_input_id" th:text="'Date'"></label>
-            <br>
-            <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
-                <ul>
-                    <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
-                </ul>
+            <div class="row mb-3">
+                <label th:for="name_input_id" th:text="'Name:'"></label>
+                <input class="input_search_field bc-whitesmoke rounded" type="text" id="name_input_id" th:field="*{name}">
             </div>
-            <input type="datetime-local" id="date_input_id" th:field="*{dateOfGame}">
-            <br>
-            <button type="submit" class="btn btn-primary" th:text="'Submit'"></button>
+            <div class="row mb-3">
+                <label th:for="type_input_id" th:text="'Type:'"></label>
+                <select class="input_search_field bc-whitesmoke rounded" id="type_input_id" th:field="*{type}">
+                    <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
+                            th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label th:for="town_input_id" th:text="'Town:'"></label>
+                <input class="input_search_field bc-whitesmoke rounded" type="text" id="town_input_id" th:field="*{town}">
+            </div>
+            <div class="row mb-3">
+                <label th:for="maxNumberOfPlayers_input_id" th:text="'Max number of players:'"></label>
+                <input class="input_search_field bc-whitesmoke rounded" type="text" id="maxNumberOfPlayers_input_id" th:field="*{maxNumberOfPlayers}">
+            </div>
+            <div class="row mb-3">
+                <label th:for="date_input_id" th:text="'Date:'"></label>
+                <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+                <input class="input_search_field bc-whitesmoke rounded" type="datetime-local" id="date_input_id" th:field="*{dateOfGame}">
+            </div>
+            <div class="row mb-3">
+                <button type="submit" class="btn btn-warning">
+                    <span>Create!</span>
+                    <i class="fa fa-legal" aria-hidden="true"></i>
+                </button>
+            </div>
         </form>
     </div>
 </div>

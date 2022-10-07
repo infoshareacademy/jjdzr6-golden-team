@@ -1,13 +1,14 @@
 package com.infoshareacademy.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private static final String HOME_PAGE = "/";
     private static final String DASHBOARD_PAGE = "/dashboard";
@@ -16,40 +17,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String SIGN_OUT_API = "/api/sign-out";
     private static final String SIGN_UP = "/registration";
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        // @formatter:off
         http
-                .authorizeRequests()
-                .antMatchers("/css/**", "/bootstrap/**", "/assets/bootstrap-solid.svg",
+            .authorizeRequests()
+                .mvcMatchers("/css/**", "/assets/**",
                         HOME_PAGE,
                         SIGN_IN_PAGE,
                         SIGN_IN_API,
                         SIGN_UP).permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .formLogin()
-                .loginPage(SIGN_IN_PAGE)
-                .loginProcessingUrl(SIGN_IN_API)
-                .defaultSuccessUrl(DASHBOARD_PAGE, true)
-                .failureUrl(SIGN_IN_PAGE + "?error")
-                .and()
+                    .loginPage(SIGN_IN_PAGE)
+                    .loginProcessingUrl(SIGN_IN_API)
+                    .defaultSuccessUrl(DASHBOARD_PAGE, true)
+                    .failureUrl(SIGN_IN_PAGE + "?error")
+            .and()
                 .logout()
-                .logoutUrl(SIGN_OUT_API)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl(HOME_PAGE);
-    }
+                    .logoutUrl(SIGN_OUT_API)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl(HOME_PAGE);
+        // @formatter:on
 
-    /*@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{bcrypt}$2a$12$NID.YIxlFe/Au92P0zbaquwb1/.GR8vkd2mKgZDaj4Np3IQ54JNAO")
-                .roles("ADMIN")
-                .and()
-                .withUser("user")
-                .password(encoder.encode("user"))
-                .roles("USER");
-    }*/
+        return http.build();
+    }
 }

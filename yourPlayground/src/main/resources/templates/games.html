@@ -9,50 +9,63 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/css/input_search_fields.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/signin.css}" rel="stylesheet"/>
 
-    <title th:text="'Game'"></title>
-    <link th:href="@{/css/table.css}" rel="stylesheet" type="text/css"/>
+    <title th:text="'Games'"></title>
+
 </head>
-<body>
+<body class="bc-whitesmoke">
 <div th:insert="fragments/header"></div>
 
-<div class="container-md" style="margin-top: 4rem">
+<div class="container-md p-4 m-4 shadow bc-darkseagreen rounded-3">
 
 
-    <div class="row">
-        <div class="row">
-            <h1 th:text="'Game search'"></h1>
-        </div>
-        <div class="row align-middle">
-            <div th:insert="game-search"></div>
-        </div>
-    </div>
+    <div th:insert="game-search" class="row mb-3"></div>
 
 
-    </br>
-    </br>
-    <a th:href="@{/games/new}">
-        <button type="button" class="btn btn-primary" th:text="'Create game'"></button>
-    </a>
-    </br>
-    </br>
-
-    <table>
+    <table class="table table-hover text-center">
+        <thead>
         <tr>
-            <th th:text="'Id'"></th>
-            <th th:text="'Name'"></th>
-            <th th:text="'Link'"></th>
+            <th th:text="'Game'"></th>
+            <th th:text="'Game type'"></th>
+            <th th:text="'Town of game'"></th>
+            <th th:text="'Date of game'"></th>
+            <th th:text="'Players'"></th>
         </tr>
-        <tr th:each="game,iterStat : ${games}" th:class="${iterStat.odd}? 'grey-row'">
-            <td th:text="${game.id}"></td>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
             <td th:text="${game.name}"></td>
+            <td th:text="${game.type.value}"></td>
+            <td th:text="${game.gameLocation.town}"></td>
+            <td th:text="${game.dateOfGame.toLocalDate()} + ' | ' + ${game.dateOfGame.toLocalTime()}"></td>
+            <td th:text="${game.players.size} +'/'+ ${game.maxNumberOfPlayers}"></td>
             <td>
-                <a th:href="@{/games/{id}(id=${game.id})}">
-                    <button type="button" class="btn btn-primary" th:text="'Link'"></button>
+                <a th:href="@{/games/join/{id}(id=${game.id})}"
+                   th:if="${game.gameOwner != player
+                   && game.players.size != game.maxNumberOfPlayers
+                   && !game.players.contains(player)}">
+                    <button type="button" class="btn btn-success btn-sm">
+                        <span>Join</span>
+                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    </button>
+                </a>
+                <a th:href="@{/games/delete/{id}(id=${game.id})}"
+                   th:if="${game.gameOwner == player}">
+                    <button type="button" class="btn btn-danger btn-sm">
+                        <span>Delete</span>
+                        <i class="fa fa-remove" aria-hidden="true"></i>
+                    </button>
                 </a>
             </td>
         </tr>
+        </tbody>
     </table>
+
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

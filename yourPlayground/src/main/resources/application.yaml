@@ -14,6 +14,16 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    enabled: true
+    suffix: .html
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: 0
 logging:
   level:
     org:

@@ -2,6 +2,7 @@ package com.infoshareacademy.entity;
 
 import com.google.gson.GsonBuilder;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "locations")
@@ -28,9 +30,6 @@ public class Location {
     private double latitude;
     @Column
     private String town;
-
-    @OneToMany(mappedBy = "gameLocation")
-    private List<Game> games;
 
     public Location(double longitude, double latitude, String town) {
         this.longitude = longitude;

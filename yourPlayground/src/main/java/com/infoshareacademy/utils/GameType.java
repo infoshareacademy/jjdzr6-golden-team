@@ -2,7 +2,7 @@ package com.infoshareacademy.utils;
 
 public enum GameType {
     BOARD("Board game"),
-    SPORTS("Sport game");
+    SPORT("Sport game");
 
     private final String value;
 

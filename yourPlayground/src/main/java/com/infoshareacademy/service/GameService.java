@@ -1,22 +1,23 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.dto.CreateGameDto;
-import com.infoshareacademy.dto.FindGameDto;
-import com.infoshareacademy.dto.GameDto;
-import com.infoshareacademy.dto.PlayerDto;
+import com.infoshareacademy.dto.*;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
 import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.exceptions.GameIsFullException;
+import com.infoshareacademy.exceptions.GameNotFoundException;
+import com.infoshareacademy.exceptions.PlayerNotFoundException;
 import com.infoshareacademy.mappers.GameMapper;
-import com.infoshareacademy.mappers.PlayerMapper;
 import com.infoshareacademy.repository.GameDao;
 import com.infoshareacademy.repository.GameRepository;
 import com.infoshareacademy.repository.LocationRepository;
+import com.infoshareacademy.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +26,9 @@ public class GameService {
     private final GameRepository gameRepository;
     private final GameDao gameDao;
     private final LocationRepository locationRepository;
+
+    private final PlayerRepository playerRepository;
     private final GameMapper gameMapper;
-    private final PlayerMapper playerMapper;
 
 
     public void create(CreateGameDto createGameDto) {
@@ -42,23 +44,48 @@ public class GameService {
         gameRepository.save(game);
     }
 
-    public GameDto findById(Integer id) {
+    public void joinGame(JoinGameDto joinGameDto, PlayerDto playerDto) throws GameNotFoundException, PlayerNotFoundException {
+        Game game = gameRepository.findById(joinGameDto.getId())
+                .orElseThrow(() -> new GameNotFoundException("Could not find game with ID: " + joinGameDto.getId()));
+        if (game.getPlayersSize() >= game.getMaxNumberOfPlayers()) throw new GameIsFullException();
+
+        Player player = playerRepository.findByUsername(playerDto.getUsername())
+                .orElseThrow(() -> new PlayerNotFoundException("Could not find player with Username: " + playerDto.getUsername()));
+        game.getPlayers().add(player);
+        gameRepository.save(game);
+    }
+
+    public void deleteGame(Integer id) {
+        gameRepository.deleteById(id);
+    }
+
+    public GameDto findById(Integer id) throws GameNotFoundException {
         Optional<Game> game = gameRepository.findById(id);
-        return gameMapper.toDto(game.get());
+        if (game.isPresent()) {
+            return gameMapper.toDto(game.get());
+        } else throw new GameNotFoundException(
+                "Could not find game with ID: " + id);
     }
 
     public List<GameDto> findAll() {
         Collection<Game> games = gameRepository.findAll();
         return games.stream()
-                .map(gameMapper::toDto)
-                .collect(Collectors.toList());
+                .map(gameMapper::toDto).toList();
 
+    }
+
+    public List<GameDto> findAllByOwner(Player player) {
+        Collection<Game> games = gameRepository.findAllByGameOwner(player);
+
+        return games.stream()
+                .map(gameMapper::toDto).toList();
     }
 
     public List<GameDto> findByCriteriaBuilder(FindGameDto findGameDto) {
         Collection<Game> foundGames = gameDao.findGamesByCriteriaBuilder(findGameDto);
         return foundGames.stream()
-                .map(gameMapper::toDto)
-                .collect(Collectors.toList());
+                .map(gameMapper::toDto).toList();
     }
+
+
 }
