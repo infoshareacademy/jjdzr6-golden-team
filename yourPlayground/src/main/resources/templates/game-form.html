@@ -39,9 +39,9 @@
                 <select class="input_search_field bc-whitesmoke rounded" id="name_input_id" th:field="*{name}">
                     <option value="">Choose a game</option>
                     <option data-game="SPORT" th:each="nameOpt : ${T(com.infoshareacademy.utils.SportGames).values()}"
-                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                            th:value="${nameOpt.getValue()}" th:text="${nameOpt.value}"></option>
                     <option data-game="BOARD" th:each="nameOpt : ${T(com.infoshareacademy.utils.BoardGames).values()}"
-                            th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
+                            th:value="${nameOpt.getValue()}" th:text="${nameOpt.value}"></option>
                 </select>
             </div>
             <div class="row mb-3">
@@ -80,18 +80,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-<script>
-    document.getElementById('type_input_id').addEventListener("change", e => {
-        document.getElementById('name_input_id').value = "";
-        const children = document.getElementById('name_input_id').children;
-        Array.from(children).forEach(node => {
-            if (node.getAttribute("data-game") !== e.target.value) {
-                node.style.display = "none";
-            } else {
-                node.style.display = "block";
-            }
-        })
-    })
-</script>
+<script th:src="@{/js/type-dropdown-listener.js}"></script>
 </body>
 </html>
