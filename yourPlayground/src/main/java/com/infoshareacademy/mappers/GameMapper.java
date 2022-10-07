@@ -2,10 +2,8 @@ package com.infoshareacademy.mappers;
 
 import com.infoshareacademy.dto.CreateGameDto;
 import com.infoshareacademy.dto.GameDto;
-import com.infoshareacademy.dto.PlayerDto;
 import com.infoshareacademy.entity.Game;
 import com.infoshareacademy.entity.Location;
-import com.infoshareacademy.entity.Player;
 import com.infoshareacademy.repository.LocationRepository;
 import com.infoshareacademy.repository.PlayerRepository;
 import com.infoshareacademy.utils.GameType;
