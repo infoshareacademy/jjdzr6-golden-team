@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Secure app</title>
+    <title th:text="#{map.page.title}"></title>
+    <link rel="icon" th:href="@{/assets/playground.png}">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,7 +20,7 @@
 <div class="container text-center">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Welcome to map!</h1>
+            <h1 class="jumbotron-heading" th:text="#{map.welcome}"></h1>
         </div>
     </section>
 </div>

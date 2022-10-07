@@ -66,3 +66,10 @@ body {
     border-color: whitesmoke;
     background-color: rgb(245, 245, 245, .8);
 }
+
+.about-us {
+    background-color: rgb(245, 245, 245, .8);
+    border-color: whitesmoke;
+    position: sticky;
+    font-size: xx-large;
+}

@@ -3,7 +3,7 @@
 <body>
 <div class="fixed-top">
     <div class="row align-items-center bc-darkseagreen">
-        <div class="col img-scale text-start ms-1 mt-1">
+        <div class="col img-scale text-start ms-1 mt-1" th:href="@{/}">
             <img th:src="@{/assets/playground-long.png}" alt="" height="80" class="mb-1">
         </div>
         <div class="col text-end me-4">
@@ -20,19 +20,19 @@
         <nav th:fragment="header" sec:authorize="isAuthenticated()"
              class="navbar navbar-expand-lg navbar-dark scrolling-navbar justify-content-start bc-darkseagreen m-auto">
             <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2" >
-                <a class="navbar-brand me-0" th:href="@{/}">About</a>
+                <a class="navbar-brand me-0" th:href="@{/}" th:text="#{header.about-us}"></a>
             </div>
             <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
-                <a class="navbar-brand me-0" th:href="@{/dashboard}" sec:authorize="isAuthenticated()">Dashboard</a>
+                <a class="navbar-brand me-0" th:href="@{/dashboard}" sec:authorize="isAuthenticated()" th:text="#{header.dashboard}"></a>
             </div>
             <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
-                <a class="navbar-brand me-0" th:href="@{/games}" sec:authorize="isAuthenticated()">Games</a>
+                <a class="navbar-brand me-0" th:href="@{/games}" sec:authorize="isAuthenticated()" th:text="#{header.games}"></a>
             </div>
             <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
-                <a class="navbar-brand me-0" th:href="@{/map}" sec:authorize="isAuthenticated()">Map</a>
+                <a class="navbar-brand me-0" th:href="@{/map}" sec:authorize="isAuthenticated()" th:text="#{header.map}"></a>
             </div>
             <div class="nav-item p-1 m-1 btn-secondary bc-darkseagreen rounded-2">
-                <a class="navbar-brand me-0" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')">Users</a>
+                <a class="navbar-brand me-0" th:href="@{/users}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{header.users}"></a>
             </div>
         </nav>
     </div>

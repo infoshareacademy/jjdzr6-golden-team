@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Secure app</title>
+    <title th:text="#{about.page.title}"></title>
+    <link rel="icon" th:href="@{/assets/playground.png}">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -16,16 +17,19 @@
 </head>
 
 <body class="bc-whitesmoke">
-<div class="container-md">
+<div class="container-md text-center">
     <div class="row">
         <div th:insert="fragments/header"></div>
     </div>
     <video autoplay muted loop class="videos" th:src="@{/assets/basketball.mp4}"></video>
-    <h1 class="welcome-heading">Welcome to yourPlayground!</h1>
+    <h1 class="welcome-heading" sec:authorize="!isAuthenticated()" th:text="#{about.welcome}"></h1>
     <a class="btn btn-light rounded-0 border-2 welcome-login" th:href="@{/sign-in}" sec:authorize="!isAuthenticated()">
-        <span>Log in</span>
+        <span th:text="#{about.login}"></span>
         <i class="fa fa-sign-in"></i>
     </a>
+    <div class="row m-0 m-auto" sec:authorize="isAuthenticated()">
+        <p class="border-2 about-us p-2 border" th:utext="#{about.title}+ '<br>' + #{about.text}"></p>
+    </div>
 </div>
 
 <!-- Bootstrap core JS-->

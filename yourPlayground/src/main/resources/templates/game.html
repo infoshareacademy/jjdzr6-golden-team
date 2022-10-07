@@ -2,8 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title th:text="${game.name} + ', ' + ${game.town}"></title>
+    <link rel="icon" th:href="@{/assets/playground.png}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,26 +21,8 @@
 <div th:insert="fragments/header"></div>
 
 <div class="container-md">
-    <h1 th:text="'The Game'"></h1>
     <div>
         <h2 th:text="${game.name}"></h2>
-        <ul><!--/*
-            <li th:text="#{game.category} + ': ' + ${game.category}"></li>
-               <li th:text="#{game.active} + ': ' +  ${game.active} "></li>
-               <div th:switch="${game.active}">
-                   <li th:case="true" th:text="#{game.active} + ': ' +  #{form.yes}"></li>
-                   <li th:case="*" th:text="#{game.active} + ': ' +  #{form.no}"></li>
-               </div>
-
-               <div th:switch="${game.active}">
-                   <li th:case="true" th:text="#{game.active} + ': ' +  #{form.yes}"></li>
-                   <li th:case="*" th:text="#{game.active} + ': ' +  #{form.no}"></li>
-               </div>
-
-            <li th:if="${game.active}" th:text="#{game.active} + ': ' +  #{form.yes}"></li>
-            <li th:unless="${game.active}" th:text="#{game.active} + ': ' +  #{form.no}"></li>
-            */-->
-        </ul>
     </div>
 </div>
 

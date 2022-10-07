@@ -2,23 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="row">
-    <h1 class="">Game search</h1>
+    <h1 th:text="#{gamesearch.title}"></h1>
 </div>
 <div class="row">
     <form id="form" th:object="${findGame}" th:action="@{/games/find}" method="post">
         <div class="row mb-3">
             <div class="col-sm">
-                <label class="align-top" th:for="type_input_id" th:text="'Type:'"></label>
+                <label class="align-top" th:for="type_input_id" th:text="#{gamesearch.type}"></label>
                 <select class="input_search_field bc-whitesmoke" id="type_input_id" th:field="*{type}">
-                    <option value="">Choose type of game</option>
+                    <option value="" th:text="#{gamesearch.choose-type}"></option>
                     <option th:each="typeOpt : ${T(com.infoshareacademy.utils.GameType).values()}"
                             th:value="${typeOpt}" th:text="${typeOpt.value}"></option>
                 </select>
             </div>
             <div class="col-sm">
-                <label th:for="name_input_id" th:text="'Name:'"></label>
+                <label th:for="name_input_id" th:text="#{gamesearch.name}"></label>
                 <select class="input_search_field bc-whitesmoke rounded" id="name_input_id" th:field="*{name}">
-                    <option value="">Choose a game</option>
+                    <option value="" th:text="#{gamesearch.choose-game}"></option>
                     <option data-game="SPORT" th:each="nameOpt : ${T(com.infoshareacademy.utils.SportGames).values()}"
                             th:value="${nameOpt}" th:text="${nameOpt.value}"></option>
                     <option data-game="BOARD" th:each="nameOpt : ${T(com.infoshareacademy.utils.BoardGames).values()}"
@@ -26,12 +26,12 @@
                 </select>
             </div>
             <div class="col-sm">
-                <label th:for="town_input_id" th:text="'Town:'"></label>
+                <label th:for="town_input_id" th:text="#{gamesearch.town}"></label>
                 <input class="input_search_field bc-whitesmoke" type="text" id="town_input_id" th:field="*{town}">
             </div>
 
             <div class="col-sm">
-                <label th:for="date_input_id" th:text="'Date of game:'"></label>
+                <label th:for="date_input_id" th:text="#{gamesearch.date}"></label>
                 <div th:class="'alert alert-danger'" th:if="${#fields.hasErrors('dateOfGame')}">
                     <ul>
                         <li th:each="err : ${#fields.errors('dateOfGame')}" th:text="${err}"></li>
@@ -45,18 +45,18 @@
             <div class="col-sm text-start">
                 <a th:href="@{/games/new}">
                     <button type="button" class="btn btn-warning text-start">
-                        <span>Create game</span>
+                        <span th:text="#{gamesearch.create-game}"></span>
                         <i class="fa fa-plus-square" aria-hidden="true"></i>
                     </button>
                 </a>
             </div>
             <div class="col-sm text-end">
                 <button id="clear-button" onclick="resetForm()" class="btn btn-secondary">
-                    <span>Clear</span>
+                    <span th:text="#{gamesearch.clear}"></span>
                     <i class="fa fa-remove" aria-hidden="true"></i>
                 </button>
                 <button type="submit" class="btn btn-primary">
-                    <span>Search</span>
+                    <span th:text="#{gamesearch.search}"></span>
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
             </div>
