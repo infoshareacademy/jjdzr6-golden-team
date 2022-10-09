@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -20,5 +21,6 @@ public class FindGameDto {
     private String town;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @FutureOrPresent
+    @NotNull
     private LocalDate dateOfGame;
 }

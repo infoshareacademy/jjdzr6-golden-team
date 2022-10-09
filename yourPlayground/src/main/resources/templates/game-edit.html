@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title th:text="#{creategame.page.title}"></title>
+    <title th:text="#{editgame.page.title}"></title>
     <link rel="icon" th:href="@{/assets/playground.png}">
 
     <!-- Bootstrap CSS -->
@@ -23,11 +23,11 @@
 
 <div class="container-md p-4 m-4 shadow bc-darkseagreen rounded-3 w-20">
     <div class="row">
-        <h1 th:text="#{creategame.page.title}"></h1>
+        <h1 th:text="#{editgame.page.title}"></h1>
     </div>
 
     <div class="row">
-        <form th:object="${game}" th:action="@{/games/new}" method="post">
+        <form th:object="${game}" th:action="@{/games/edit/{id}(id=${game.id})}" method="post">
             <div class="row mb-3">
                 <label th:for="type_input_id" th:text="#{creategame.type}"></label>
                 <div class="alert alert-danger p-0 pt-1" th:if="${#fields.hasErrors('type')}">
@@ -58,13 +58,13 @@
             </div>
             <div class="row mb-3">
                 <label th:for="town_input_id" th:text="#{creategame.town}"></label>
-                <div class="alert alert-danger p-0 pt-1" th:if="${#fields.hasErrors('town')}">
+                <div class="alert alert-danger p-0 pt-1" th:if="${#fields.hasErrors('gameLocation.town')}">
                     <ul>
-                        <li th:each="err : ${#fields.errors('town')}" th:text="${err}"></li>
+                        <li th:each="err : ${#fields.errors('gameLocation.town')}" th:text="${err}"></li>
                     </ul>
                 </div>
                 <input class="input_search_field bc-whitesmoke rounded" type="text" id="town_input_id"
-                       th:field="*{town}">
+                       th:field="*{gameLocation.town}">
             </div>
             <div class="row mb-3">
                 <label th:for="maxNumberOfPlayers_input_id" th:text="#{creategame.maxnumofplayers}"></label>
@@ -87,9 +87,9 @@
                        th:field="*{dateOfGame}">
             </div>
             <div class="row mb-3">
-                <button type="submit" class="btn btn-warning">
-                    <span th:text="#{creategame.create}"></span>
-                    <i class="fa fa-legal" aria-hidden="true"></i>
+                <button type="submit" class="btn btn-success">
+                    <span th:text="#{editgame.edit}"></span>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
             </div>
         </form>
