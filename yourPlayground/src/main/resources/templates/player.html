@@ -19,38 +19,68 @@
 <body class="bc-whitesmoke">
 <div th:insert="fragments/header"></div>
 
-<div class="container-md p-4 m-4 shadow bc-darkseagreen rounded-3">
-    <h1 th:text="#{player.dear} + ' ' + ${player.username} + #{player.those}"></h1>
-    <table class="table table-hover text-center">
-        <thead>
-        <tr>
-            <th th:text="#{games.game}"></th>
-            <th th:text="#{games.type}"></th>
-            <th th:text="#{games.town}"></th>
-            <th th:text="#{games.date}"></th>
-            <th th:text="#{games.players}"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="game,iterStat : ${games}">
-            <td th:text="${game.name}"></td>
-            <td th:text="${game.type.value}"></td>
-            <td th:text="${game.gameLocation.town}"></td>
-            <td th:text="${game.dateOfGame.toLocalDate()} + ' | ' + ${game.dateOfGame.toLocalTime()}"></td>
-            <td th:text="${game.players.size} +'/'+ ${game.maxNumberOfPlayers}"></td>
-            <td>
-                <a th:href="@{/games/{id}(id=${game.id})}">
-                    <button type="button" class="btn btn-success btn-sm">
-                        <span th:text="#{games.edit-game}"></span>
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </button>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container-md">
+    <div class="row">
+        <div class="container-md p-4 m-4 shadow bc-darkseagreen rounded-3">
+            <h1 th:text="#{player.upcomingGames}"></h1>
+            <table class="table table-hover text-center">
+                <thead>
+                <tr>
+                    <th th:text="#{games.game}"></th>
+                    <th th:text="#{games.type}"></th>
+                    <th th:text="#{games.town}"></th>
+                    <th th:text="#{games.date}"></th>
+                    <th th:text="#{games.players}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="game,iterStat : ${futureGames}">
+                    <td th:text="${game.name}"></td>
+                    <td th:text="${game.type.value}"></td>
+                    <td th:text="${game.gameLocation.town}"></td>
+                    <td th:text="${game.dateOfGame.toLocalDate()} + ' | ' + ${game.dateOfGame.toLocalTime()}"></td>
+                    <td th:text="${game.players.size} +'/'+ ${game.maxNumberOfPlayers}"></td>
+                    <td>
+                        <a th:href="@{/games/edit/{id}(id=${game.id})}">
+                            <button type="button" class="btn btn-success btn-sm">
+                                <span th:text="#{games.edit-game}"></span>
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-</div>
+        </div>
+    </div>
+
+    <div class="row" th:if="${pastGames.size} > 0">
+        <div class="container-md p-4 m-4 shadow bc-lightgrey rounded-3">
+            <h1 th:text="#{player.gameHistory}"></h1>
+            <table class="table table-hover text-center">
+                <thead>
+                <tr>
+                    <th th:text="#{games.game}"></th>
+                    <th th:text="#{games.type}"></th>
+                    <th th:text="#{games.town}"></th>
+                    <th th:text="#{games.date}"></th>
+                    <th th:text="#{games.players}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="game,iterStat : ${pastGames}">
+                    <td th:text="${game.name}"></td>
+                    <td th:text="${game.type.value}"></td>
+                    <td th:text="${game.gameLocation.town}"></td>
+                    <td th:text="${game.dateOfGame.toLocalDate()} + ' | ' + ${game.dateOfGame.toLocalTime()}"></td>
+                    <td th:text="${game.players.size} +'/'+ ${game.maxNumberOfPlayers}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

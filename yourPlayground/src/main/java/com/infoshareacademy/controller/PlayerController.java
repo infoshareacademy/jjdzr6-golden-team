@@ -36,7 +36,8 @@ public class PlayerController {
         Player player = playerRepository.findByUsername(authentication.getName()).orElseThrow();
 
         model.addAttribute("player", playerService.findByUsername(player.getUsername()));
-        model.addAttribute("games", gameService.findAllByOwner(player));
+        model.addAttribute("futureGames", gameService.findAllInFutureByOwner(player));
+        model.addAttribute("pastGames", gameService.findAllInPastByOwner(player));
         return "player";
     }
 }

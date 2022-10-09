@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 
@@ -29,6 +30,7 @@ public class Location {
     @Column
     private double latitude;
     @Column
+    @NotEmpty
     private String town;
 
     public Location(double longitude, double latitude, String town) {

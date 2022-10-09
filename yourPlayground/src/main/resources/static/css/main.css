@@ -31,6 +31,10 @@ body {
     background-color: darkseagreen;
 }
 
+.bc-lightgrey {
+    background-color: lightgrey;
+}
+
 .img-scale {
     object-fit: scale-down;
 }

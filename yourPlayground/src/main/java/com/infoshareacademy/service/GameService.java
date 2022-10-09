@@ -13,8 +13,13 @@ import com.infoshareacademy.repository.GameRepository;
 import com.infoshareacademy.repository.LocationRepository;
 import com.infoshareacademy.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +49,7 @@ public class GameService {
         gameRepository.save(game);
     }
 
+    @Transactional
     public void joinGame(JoinGameDto joinGameDto, PlayerDto playerDto) throws GameNotFoundException, PlayerNotFoundException {
         Game game = gameRepository.findById(joinGameDto.getId())
                 .orElseThrow(() -> new GameNotFoundException("Could not find game with ID: " + joinGameDto.getId()));
@@ -55,8 +61,27 @@ public class GameService {
         gameRepository.save(game);
     }
 
+    @Transactional
     public void deleteGame(Integer id) {
         gameRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void editGame(GameDto gameDto ,Integer id) {
+        Optional<Game> byId = gameRepository.findById(id);
+
+        if(byId.isPresent()) {
+            Game game = byId.get();
+            game.setType(gameDto.getType());
+            game.setName(gameDto.getName());
+            game.setMaxNumberOfPlayers(gameDto.getMaxNumberOfPlayers());
+            game.setDateOfGame(gameDto.getDateOfGame());
+
+            Location gameLocation = game.getGameLocation();
+            gameLocation.setTown(gameDto.getGameLocation().getTown());
+
+        }
+
     }
 
     public GameDto findById(Integer id) throws GameNotFoundException {
@@ -74,6 +99,14 @@ public class GameService {
 
     }
 
+    public List<GameDto> findAllInFuture() {
+        Collection<Game> games = gameRepository.findAll();
+        return games.stream()
+                .filter(g -> g.getDateOfGame().isAfter(LocalDateTime.now()))
+                .map(gameMapper::toDto).toList();
+
+    }
+
     public List<GameDto> findAllByOwner(Player player) {
         Collection<Game> games = gameRepository.findAllByGameOwner(player);
 
@@ -81,10 +114,36 @@ public class GameService {
                 .map(gameMapper::toDto).toList();
     }
 
+    public Object findAllInFutureByOwner(Player player) {
+        Collection<Game> games = gameRepository.findAllByGameOwner(player);
+
+        return games.stream()
+                .filter(g -> g.getDateOfGame().isAfter(LocalDateTime.now()))
+                .map(gameMapper::toDto).toList();
+    }
+
+    public Object findAllInPastByOwner(Player player) {
+        Collection<Game> games = gameRepository.findAllByGameOwner(player);
+
+        return games.stream()
+                .filter(g -> g.getDateOfGame().isBefore(LocalDateTime.now()))
+                .map(gameMapper::toDto).toList();
+    }
+
+
     public List<GameDto> findByCriteriaBuilder(FindGameDto findGameDto) {
         Collection<Game> foundGames = gameDao.findGamesByCriteriaBuilder(findGameDto);
         return foundGames.stream()
-                .map(gameMapper::toDto).toList();
+                .map(gameMapper::toDto)
+                .filter(g -> g.getDateOfGame().isAfter(LocalDateTime.now()))
+                .toList();
+    }
+
+
+    public int getMaxNumberOfPlayersById(Integer id) {
+       if (gameRepository.findById(id).isPresent()) {
+           return gameRepository.findById(id).get().getMaxNumberOfPlayers();
+       } else return 0;
     }
 
 
