@@ -1,12 +1,23 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
+<head>
+    <link th:href="@{/css/input_search_fields.css}" rel="stylesheet"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/css/signin.css}" rel="stylesheet"/>
+</head>
 <body>
 <div class="fixed-top">
     <div class="row align-items-center bc-darkseagreen">
         <div class="col img-scale text-start ms-1 mt-1" th:href="@{/}">
             <img th:src="@{/assets/playground-long.png}" alt="" height="80" class="mb-1">
         </div>
-        <div class="col text-end me-4">
+        <div class="col text-end me-4" sec:authorize="isAuthenticated()">
+            <select class="bc-whitesmoke" id="locales">
+                <option value="" th:text="#{languages.change}"></option>
+                <option value="en" th:text="#{languages.english}">
+                    <i class="en"></i>
+                </option>
+                <option value="pl" th:text="#{languages.polish}"></option>
+            </select>
             <a th:href="@{/player}" class="btn btn-secondary bc-darkseagreen bor-darkseagreen" sec:authorize="isAuthenticated()">
                 <i class="fa fa-user"></i>
             </a>
