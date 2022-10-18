@@ -21,6 +21,5 @@ public class FindGameDto {
     private String town;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @FutureOrPresent
-    @NotNull
     private LocalDate dateOfGame;
 }

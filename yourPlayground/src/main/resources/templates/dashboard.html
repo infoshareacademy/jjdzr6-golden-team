@@ -26,5 +26,16 @@
 
 <!-- Bootstrap core JS-->
 <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            const selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('dashboard?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
 </body>
 </html>

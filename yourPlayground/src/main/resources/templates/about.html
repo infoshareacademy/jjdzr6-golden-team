@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -34,5 +34,16 @@
 
 <!-- Bootstrap core JS-->
 <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            const selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
 </body>
 </html>
