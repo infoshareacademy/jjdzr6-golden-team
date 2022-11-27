@@ -1,5 +1,6 @@
 package com.infoshareacademy.dto;
 
+import com.infoshareacademy.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +37,9 @@ public class PlayerDto {
     public PlayerDto(Integer id, String username) {
         this.id = id;
         this.username = username;
+    }
+
+    public boolean hasAdminRole() {
+        return rolesNames.contains("ADMIN");
     }
 }

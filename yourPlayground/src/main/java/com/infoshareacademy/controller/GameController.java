@@ -45,7 +45,7 @@ public class GameController {
     @GetMapping
     public String getGames(Model model) {
         model.addAttribute("findGame", new FindGameDto());
-        model.addAttribute("games", gameService.findAll());
+        model.addAttribute("games", gameService.findAllInFuture());
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

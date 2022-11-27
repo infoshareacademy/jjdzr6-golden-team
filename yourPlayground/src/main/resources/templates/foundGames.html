@@ -55,7 +55,7 @@
                     </button>
                 </a>
                 <a th:href="@{/games/delete/{id}(id=${game.id})}"
-                   th:if="${game.gameOwner == player}">
+                   th:if="${game.gameOwner == player || player.hasAdminRole()}">
                     <button type="button" class="btn btn-danger btn-sm">
                         <span th:text="#{games.delete}"></span>
                         <i class="fa fa-remove" aria-hidden="true"></i>

@@ -1,13 +1,33 @@
 package com.infoshareacademy.controller;
 
+import com.infoshareacademy.entity.Player;
+import com.infoshareacademy.repository.PlayerRepository;
+import com.infoshareacademy.service.GameService;
+import com.infoshareacademy.service.PlayerService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DashboardController {
 
+    private final PlayerService playerService;
+    private final PlayerRepository playerRepository;
+    private final GameService gameService;
+
     @GetMapping("/dashboard")
-    public String app() {
+    public String app(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Player player = playerRepository.findByUsername(authentication.getName()).orElseThrow();
+
+        model.addAttribute("player", playerService.findByUsername(player.getUsername()));
+        model.addAttribute("futureGames", gameService.findAllFutureGamesByPlayer(player));
+        model.addAttribute("pastGames", gameService.findAllPastGamesByPlayer(player));
         return "dashboard";
     }
 }

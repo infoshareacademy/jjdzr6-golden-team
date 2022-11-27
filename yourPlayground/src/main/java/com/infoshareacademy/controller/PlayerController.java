@@ -19,7 +19,6 @@ public class PlayerController {
 
     private final PlayerService playerService;
     private final PlayerRepository playerRepository;
-
     private final GameService gameService;
 
     @Secured("ROLE_ADMIN")
