@@ -104,13 +104,20 @@ public class GameService {
         return games.stream()
                 .filter(g -> g.getDateOfGame().isAfter(LocalDateTime.now()))
                 .map(gameMapper::toDto).toList();
-
+    }
+    public List<GameDto> findAllPastGamesByPlayer(Player player) {
+        Collection<Game> games = gameRepository.findAll();
+        return games.stream()
+                .filter(g -> g.getDateOfGame().isBefore(LocalDateTime.now()))
+                .filter(g -> g.getPlayers().contains(player))
+                .map(gameMapper::toDto).toList();
     }
 
-    public List<GameDto> findAllByOwner(Player player) {
-        Collection<Game> games = gameRepository.findAllByGameOwner(player);
-
+    public List<GameDto> findAllFutureGamesByPlayer(Player player) {
+        Collection<Game> games = gameRepository.findAll();
         return games.stream()
+                .filter(g -> g.getDateOfGame().isAfter(LocalDateTime.now()))
+                .filter(g -> g.getPlayers().contains(player))
                 .map(gameMapper::toDto).toList();
     }
 
